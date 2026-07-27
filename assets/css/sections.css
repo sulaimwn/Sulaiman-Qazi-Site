@@ -1,0 +1,686 @@
+/* ==========================================================================
+   SECTIONS - about, experience, interlude, skills, contact.
+   ========================================================================== */
+
+/* ==========================================================================
+   01 - ABOUT
+   ========================================================================== */
+
+.identity__grid {
+  display: grid;
+  gap: clamp(var(--sp-8), 6vw, var(--sp-11));
+  align-items: start;
+}
+
+@media (min-width: 1000px) {
+  .identity__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
+}
+
+/* --------------------------------------------------------------------------
+   Abstraction stack - the levels I've actually written code at.
+   -------------------------------------------------------------------------- */
+
+.layers {
+  position: relative;
+  margin: 0;
+  padding: clamp(var(--sp-5), 3vw, var(--sp-7));
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'cap  cap'
+    'axis list';
+  gap: var(--sp-5) var(--sp-4);
+}
+
+@media (min-width: 1000px) {
+  .layers { position: sticky; top: clamp(3rem, 12vh, 7rem); }
+}
+
+.layers__cap {
+  grid-area: cap;
+  padding-bottom: var(--sp-4);
+  border-bottom: 1px solid var(--line);
+}
+
+/* The vertical axis: high level at the top, hardware at the bottom. */
+.layers__axis {
+  grid-area: axis;
+  display: grid;
+  grid-template-rows: auto minmax(20px, 1fr) auto;
+  gap: var(--sp-3);
+  justify-items: center;
+  align-items: center;
+}
+
+.layers__axis-top,
+.layers__axis-bot {
+  writing-mode: vertical-rl;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  /* ink-4 lands at 4.44:1 against the card's raised surface - one step up
+     clears AA. */
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.layers__axis-line {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--line-2), var(--copper));
+}
+
+.layers__list {
+  grid-area: list;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+}
+
+.layer {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-areas:
+    'no name'
+    'no eg';
+  gap: 1px var(--sp-4);
+  align-items: center;
+  padding: 0.62rem 0.85rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  /* Tints further toward copper the closer the layer is to hardware. */
+  background: color-mix(in srgb, var(--copper) calc(var(--d, 0) * 1.6%), var(--surface-2));
+  transition: border-color var(--dur-2) var(--ease-out),
+              transform var(--dur-2) var(--ease-out);
+}
+
+.layer:hover { border-color: color-mix(in srgb, var(--copper) 45%, transparent); transform: translateX(3px); }
+
+.layer__no {
+  grid-area: no;
+  align-self: center;
+  font-size: var(--step--2);
+  color: var(--copper);
+  opacity: .75;
+}
+
+.layer__name {
+  grid-area: name;
+  font-weight: 540;
+  font-size: var(--step--1);
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.layer__eg {
+  grid-area: eg;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.03em;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+
+@media (max-width: 460px) {
+  .layers { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'cap' 'list'; }
+  .layers__axis { display: none; }
+}
+
+/* Text column ------------------------------------------------------------- */
+
+.identity__text { display: grid; gap: clamp(var(--sp-7), 4vw, var(--sp-9)); }
+.identity__text strong { color: var(--ink); font-weight: 560; }
+
+/* Spec table - dotted leaders. */
+.specs { margin: 0; display: grid; gap: 0; }
+
+.specs__row {
+  display: grid;
+  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding-block: 0.85rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.specs__row:first-child { border-top: 1px solid var(--line); }
+
+.specs dt {
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.specs__row::after {
+  content: '';
+  grid-column: 2;
+  height: 1px;
+  align-self: center;
+  background-image: radial-gradient(circle, var(--ink-4) 0.5px, transparent 0.6px);
+  background-size: 5px 1px;
+  background-repeat: repeat-x;
+  opacity: .6;
+}
+
+.specs dd {
+  margin: 0;
+  grid-column: 3;
+  text-align: right;
+  font-size: var(--step--1);
+  color: var(--ink);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  justify-content: flex-end;
+}
+
+/* ==========================================================================
+   02 - EXPERIENCE
+   ========================================================================== */
+
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-bottom: clamp(var(--sp-7), 5vw, var(--sp-9));
+}
+
+.filters__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--line-2);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: border-color var(--dur-2) var(--ease-out),
+              color var(--dur-2) var(--ease-out),
+              background-color var(--dur-2) var(--ease-out);
+}
+
+.filters__btn:hover { border-color: var(--copper-lo); color: var(--ink); }
+
+.filters__btn.is-active {
+  border-color: var(--copper);
+  color: var(--copper);
+  background: var(--copper-wash);
+}
+
+.filters__n { color: var(--ink-4); font-size: 0.9em; }
+.filters__btn.is-active .filters__n { color: var(--copper); }
+
+/* Timeline ---------------------------------------------------------------- */
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  display: grid;
+  gap: clamp(var(--sp-6), 3.5vw, var(--sp-8));
+}
+
+.tl {
+  position: relative;
+  display: grid;
+  gap: var(--sp-3) var(--sp-5);
+  grid-template-columns: 1fr;
+  padding-left: var(--sp-7);
+  transition: opacity var(--dur-3) var(--ease-out);
+}
+
+.tl::before {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 0.55rem;
+  bottom: calc(-1 * clamp(var(--sp-6), 3.5vw, var(--sp-8)));
+  width: 1px;
+  background: var(--line-2);
+}
+
+.tl:last-child::before,
+.tl.is-tail::before { display: none; }
+
+.tl__node {
+  position: absolute;
+  left: 0;
+  top: 0.45rem;
+  width: 11px; height: 11px;
+  border-radius: 50%;
+  background: var(--bg);
+  border: 1.5px solid var(--ink-4);
+  transition: border-color var(--dur-3) var(--ease-out),
+              background-color var(--dur-3) var(--ease-out),
+              box-shadow var(--dur-3) var(--ease-out);
+}
+
+.tl:hover .tl__node,
+.tl:focus-within .tl__node {
+  border-color: var(--copper);
+  background: var(--copper);
+  box-shadow: 0 0 0 4px var(--copper-wash);
+}
+
+.tl__when {
+  display: flex;
+  align-items: baseline;
+  gap: var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.tl__when > :last-child { color: var(--ink-4); }
+.tl__when > :last-child::before { content: '→ '; color: var(--ink-4); }
+.tl__now { color: var(--copper) !important; }
+
+.tl__what { display: grid; gap: var(--sp-3); min-width: 0; }
+
+.tl__org {
+  color: var(--ink-2);
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+/* Organisation marks sit on a light chip so black-on-transparent crests
+   stay visible against the dark theme. */
+.org-logo {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 5px;
+  background: #fff;
+  padding: 2px;
+  object-fit: contain;
+}
+
+.org-logo--pad { padding: 1px; }
+
+.tl__role { margin: 0; color: var(--ink); }
+
+.tl__points {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--sp-2);
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+
+.tl__points li { position: relative; padding-left: var(--sp-5); }
+
+.tl__points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 10px;
+  height: 1px;
+  background: var(--copper-lo);
+}
+
+/* A figure inside a timeline entry - e.g. the board layout. */
+.tl__figure { margin: var(--sp-3) 0 0; display: grid; gap: var(--sp-3); max-width: 540px; }
+
+.tl__figure-frame {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg-sunk);
+  transition: border-color var(--dur-3) var(--ease-out);
+}
+
+.tl__figure-frame img { width: 100%; height: auto; }
+.tl:hover .tl__figure-frame { border-color: color-mix(in srgb, var(--copper) 35%, transparent); }
+
+@media (min-width: 780px) {
+  .tl {
+    grid-template-columns: 140px minmax(0, 1fr);
+    padding-left: var(--sp-8);
+    align-items: start;
+  }
+  .tl__when { flex-direction: column; gap: 2px; padding-top: 0.2rem; }
+  .tl__when > :last-child::before { content: ''; }
+}
+
+@media (min-width: 1100px) {
+  .tl { grid-template-columns: 160px minmax(0, 1fr); }
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 8px;
+  border-radius: 99px;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.chip--live {
+  color: var(--copper);
+  background: var(--copper-wash);
+  border: 1px solid color-mix(in srgb, var(--copper) 35%, transparent);
+}
+
+.tl.is-hidden { display: none; }
+
+.timeline__empty {
+  padding: var(--sp-8) 0;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+}
+
+/* ==========================================================================
+   INTERLUDE - a full-bleed visual break
+   ========================================================================== */
+
+.plate {
+  position: relative;
+  margin-left: var(--rail);
+  height: clamp(300px, 46vh, 560px);
+  overflow: hidden;
+  isolation: isolate;
+  border-block: 1px solid var(--line);
+}
+
+.plate__img { position: absolute; inset: -12% 0; z-index: -1; }
+
+.plate__img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  will-change: transform;
+}
+
+
+/* Fade the plate into the page above and below it. */
+.plate::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg,
+    var(--bg) 0%,
+    transparent 26%,
+    transparent 74%,
+    var(--bg) 100%);
+}
+
+/* In light mode the band stays dark and keeps hard edges - inverting it
+   turned the gold pink, and a full-bleed dark break on paper reads as a
+   deliberate choice rather than an accident. */
+[data-theme='light'] .plate::after { background: none; }
+[data-theme='light'] .plate { border-block-color: transparent; }
+
+/* ==========================================================================
+   04 - SKILLS
+
+   Set as an index rather than a list of claims: every row names a tool and
+   the thing it was actually used to build. That is both more useful to a
+   reader (it answers "can he really use this?") and denser, since each row
+   now earns its height instead of holding a single word.
+
+   The old treatment drew these as parts stubbed off a PCB bus. That was a
+   leftover from when the site led with electrical work, and it read as
+   decoration once the framing moved to computer science.
+   ========================================================================== */
+
+.proof {
+  display: grid;
+  gap: clamp(var(--sp-8), 5vw, var(--sp-10));
+}
+
+.proof__title {
+  margin: 0 0 var(--sp-4);
+  padding-bottom: var(--sp-3);
+  border-bottom: 1px solid var(--line-2);
+  color: var(--ink-2);
+}
+
+.proof__rows { list-style: none; margin: 0; padding: 0; }
+
+.proof__row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  grid-template-areas: 'skill link' 'use link';
+  align-items: baseline;
+  gap: 2px var(--sp-4);
+  padding: 0.72rem 0.5rem 0.72rem 0;
+  border-bottom: 1px solid var(--line);
+  transition: background-color var(--dur-2) var(--ease-out),
+              padding-left var(--dur-2) var(--ease-out);
+}
+
+.proof__row:hover {
+  background: color-mix(in srgb, var(--copper) 5%, transparent);
+  padding-left: var(--sp-3);
+}
+
+.proof__skill {
+  grid-area: skill;
+  font-weight: 560;
+  font-size: var(--step-0);
+  color: var(--ink);
+  letter-spacing: -0.005em;
+}
+
+.proof__use {
+  grid-area: use;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+.proof__link {
+  grid-area: link;
+  align-self: center;
+  min-width: 1.4em;
+  text-align: right;
+  font-size: var(--step--1);
+  color: var(--copper);
+  text-decoration: none;
+  opacity: 0;
+  transform: translateX(-4px);
+  transition: opacity var(--dur-2) var(--ease-out),
+              transform var(--dur-2) var(--ease-out);
+}
+
+/* The arrow is an affordance, not a decoration, so it appears on approach
+   and is always present for keyboard users. */
+.proof__row:hover a.proof__link,
+a.proof__link:focus-visible { opacity: 1; transform: none; }
+
+@media (pointer: coarse) {
+  a.proof__link { opacity: 1; transform: none; padding: 6px 0 6px 12px; }
+}
+
+/* Two columns of rows once there is room; the skill and its evidence stay
+   on one line each at this width, which is where the index reads best. */
+@media (min-width: 760px) {
+  .proof__row {
+    grid-template-columns: minmax(0, 13rem) minmax(0, 1fr) auto;
+    grid-template-areas: 'skill use link';
+    align-items: baseline;
+    gap: var(--sp-5);
+    padding-block: 0.62rem;
+  }
+  .proof__use { font-size: var(--step--1); }
+}
+
+@media (min-width: 1180px) {
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--sp-9) clamp(var(--sp-7), 4vw, var(--sp-9)); }
+  /* Languages is the longest group and the one that matters most, so it
+     takes the full width and the shorter two sit beside each other. */
+  .proof__group:first-child { grid-column: 1 / -1; }
+  .proof__group:first-child .proof__rows {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: clamp(var(--sp-7), 4vw, var(--sp-9));
+  }
+  /* Narrower skill column here: the columns are half-width, so every
+     millimetre given to the label is one the evidence loses, and evidence
+     wrapping to two lines is what makes the rows ragged. */
+  .proof__row { grid-template-columns: minmax(0, 7.5rem) minmax(0, 1fr) auto; gap: var(--sp-4); }
+  .proof__use { font-size: var(--step--2); }
+}
+
+/* ==========================================================================
+   05 - CONTACT
+   ========================================================================== */
+
+/* The closing section carries the same generated lattice as the interlude,
+   but pushed right back behind a heavy scrim - it is texture here, not a
+   focal point, and the type has to stay at AA. */
+.contact {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.contact__bg {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* This variant was generated for the job - already dark, already sparse -
+   so it needs far less scrim than a repurposed one would. */
+.contact__bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 60%;
+  opacity: 0.9;
+}
+
+.contact__bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(90% 80% at 16% 40%,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 72%, transparent) 42%,
+      transparent 80%),
+    linear-gradient(180deg,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 28%, transparent) 24%,
+      color-mix(in srgb, var(--bg) 30%, transparent) 72%,
+      var(--bg) 100%);
+}
+
+/* On paper the dark lattice would read as grime, so it drops to a whisper. */
+[data-theme='light'] .contact__bg img { opacity: 0.12; }
+
+.contact__grid {
+  position: relative;
+  display: grid;
+  gap: clamp(var(--sp-8), 6vw, var(--sp-11));
+  align-items: start;
+}
+
+@media (min-width: 940px) {
+  .contact__grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; }
+}
+
+.contact__title { margin: 0 0 var(--sp-5); }
+.contact__lede { margin: 0; }
+
+.pins { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+
+.pin {
+  position: relative;
+  display: grid;
+  grid-template-columns: 38px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--sp-4);
+  border-top: 1px solid var(--line);
+  transition: background-color var(--dur-2) var(--ease-out);
+}
+
+.pin:last-child { border-bottom: 1px solid var(--line); }
+
+.pin__no {
+  display: grid;
+  place-items: center;
+  width: 26px; height: 26px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-2);
+  background: var(--pad);
+  font-size: var(--step--2);
+  color: var(--ink-3);
+  transition: border-color var(--dur-2) var(--ease-out),
+              color var(--dur-2) var(--ease-out),
+              background-color var(--dur-2) var(--ease-out);
+}
+
+.pin__link {
+  display: grid;
+  gap: 3px;
+  padding-block: var(--sp-4);
+  text-decoration: none;
+  min-width: 0;
+}
+
+.pin__k { color: var(--ink-4); }
+
+.pin__v {
+  font-size: var(--step-0);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+  transition: color var(--dur-2) var(--ease-out);
+}
+
+.pin__ext { color: var(--copper); font-size: 0.85em; }
+
+.pin:not(.pin--static):hover { background: color-mix(in srgb, var(--copper) 5%, transparent); }
+.pin:not(.pin--static):hover .pin__no { border-color: var(--copper); color: var(--copper); background: var(--copper-wash); }
+.pin:not(.pin--static):hover .pin__v { color: var(--copper-hi); }
+
+.pin__copy {
+  margin-right: var(--sp-3);
+  padding: 0.4rem 0.75rem;
+  border: 1px solid var(--line-2);
+  border-radius: 99px;
+  background: transparent;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  cursor: pointer;
+  transition: border-color var(--dur-2) var(--ease-out), color var(--dur-2) var(--ease-out);
+}
+
+.pin__copy:hover { border-color: var(--copper); color: var(--copper); }
+.pin__copy.is-done { border-color: var(--signal); color: var(--signal); }
+
+@media (max-width: 520px) {
+  .pin { grid-template-columns: 30px minmax(0, 1fr); }
+  .pin__copy { grid-column: 2; justify-self: start; margin: 0 0 var(--sp-4); }
+}

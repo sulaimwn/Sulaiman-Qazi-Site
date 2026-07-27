@@ -1,0 +1,220 @@
+/* ==========================================================================
+   COMMAND MENU
+
+   Built on a native <dialog> opened with showModal(). That hands us focus
+   trapping, Escape-to-close, backdrop inertness and focus restoration from
+   the platform, which is both less code and better behaved than a
+   hand-rolled focus loop (a native modal still lets focus reach browser
+   chrome, which a manual loop wrongly blocks).
+   ========================================================================== */
+
+.cmdk {
+  width: min(560px, calc(100vw - 2rem));
+  max-height: min(60vh, 520px);
+  padding: 0;
+  border: 1px solid var(--line-2);
+  border-radius: var(--radius-lg);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, .55), 0 0 0 1px var(--line);
+  overflow: hidden;
+  /* Sits a little above centre; a dead-centre modal reads as an alert. */
+  margin: 12vh auto auto;
+}
+
+.cmdk::backdrop {
+  background: color-mix(in srgb, var(--bg-sunk) 72%, transparent);
+  backdrop-filter: blur(3px);
+}
+
+.cmdk[open] {
+  animation: cmdk-in var(--dur-3) var(--ease-out);
+}
+
+@keyframes cmdk-in {
+  from { opacity: 0; transform: translateY(-8px) scale(.985); }
+  to   { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cmdk[open] { animation: none; }
+}
+
+/* Input row --------------------------------------------------------------- */
+
+.cmdk__bar {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-bottom: 1px solid var(--line);
+}
+
+.cmdk__prompt {
+  font-family: var(--font-mono);
+  font-size: var(--step-0);
+  color: var(--copper);
+  flex: none;
+}
+
+.cmdk__input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: 0;
+  background: none;
+  outline: none;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink);
+  padding: 2px 0;
+}
+
+.cmdk__input::placeholder { color: var(--ink-4); }
+
+kbd {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1;
+  padding: 4px 6px;
+  border: 1px solid var(--line-2);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  background: var(--surface-2);
+  color: var(--ink-3);
+  white-space: nowrap;
+}
+
+/* Results ----------------------------------------------------------------- */
+
+.cmdk__list {
+  list-style: none;
+  margin: 0;
+  padding: var(--sp-2);
+  overflow-y: auto;
+  max-height: min(42vh, 360px);
+  overscroll-behavior: contain;
+}
+
+.cmdk__group {
+  padding: var(--sp-3) var(--sp-3) var(--sp-2);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: var(--track-caps);
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+.cmdk__opt {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  padding: 0.6rem 0.7rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  color: var(--ink-2);
+  scroll-margin: var(--sp-4);
+}
+
+.cmdk__opt[aria-selected='true'] {
+  background: var(--copper-wash);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--copper) 32%, transparent);
+}
+
+.cmdk__glyph {
+  flex: none;
+  width: 22px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--copper);
+}
+
+.cmdk__label { flex: 1 1 auto; min-width: 0; font-size: var(--step--1); }
+
+/* The characters that actually matched the query. */
+.cmdk__label b {
+  color: var(--copper-hi);
+  font-weight: 600;
+}
+
+.cmdk__meta {
+  flex: none;
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--ink-4);
+}
+
+.cmdk__empty {
+  margin: 0;
+  padding: var(--sp-7) var(--sp-5);
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: var(--step--1);
+  color: var(--ink-3);
+}
+
+/* Footer hints ------------------------------------------------------------ */
+
+.cmdk__foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-4);
+  padding: var(--sp-3) var(--sp-5);
+  border-top: 1px solid var(--line);
+  background: var(--bg-sunk);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  color: var(--ink-4);
+}
+
+.cmdk__foot span { display: inline-flex; align-items: center; gap: 6px; }
+
+@media (max-width: 520px) {
+  .cmdk { margin-top: 6vh; }
+  .cmdk__foot { display: none; }
+}
+
+/* ==========================================================================
+   TRIGGER: a persistent affordance, because a shortcut nobody knows about
+   is not a feature.
+   ========================================================================== */
+
+.cmdk-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: 0.5rem 0.7rem;
+  border: 1px solid var(--line-2);
+  border-radius: 99px;
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  transition: border-color var(--dur-2) var(--ease-out),
+              color var(--dur-2) var(--ease-out);
+}
+
+.cmdk-trigger:hover { border-color: var(--copper); color: var(--ink); }
+
+.rail__cmdk {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  justify-content: center;
+  border-radius: var(--radius);
+}
+
+.rail__cmdk kbd {
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 10px;
+  letter-spacing: 0;
+  color: inherit;
+}
+
+/* On mobile the trigger lives in the top bar, next to the theme switch. */
+.topbar .cmdk-trigger { padding: 0.45rem 0.6rem; }

@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sulaiman Qazi - Computer Science, University of Waterloo</title>
+<meta name="description" content="Sulaiman Qazi - Computer Science at the University of Waterloo. Game Boy emulator in C, AI-driven games, autonomous robotics navigation, and research software at Sunnybrook Research Institute.">
+<meta name="author" content="Sulaiman Qazi">
+<meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)">
+<meta name="theme-color" content="#f3f1ed" media="(prefers-color-scheme: light)">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sulaiman Qazi - Computer Science, University of Waterloo">
+<meta property="og:description" content="Emulators, AI-driven games, and research software. CS at Waterloo.">
+<meta property="og:image" content="assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="assets/css/fonts.css">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/chrome.css">
+<link rel="stylesheet" href="assets/css/hero.css">
+<link rel="stylesheet" href="assets/css/sections.css">
+<link rel="stylesheet" href="assets/css/projects.css">
+<link rel="stylesheet" href="assets/css/cmdk.css">
+<link rel="stylesheet" href="assets/css/print.css" media="print">
+
+<script>
+  /* Set before first paint: no theme flash, and reveal styles only with JS. */
+  (function () {
+    var d = document.documentElement;
+    d.classList.add('js');
+    try {
+      var saved = localStorage.getItem('sq-theme');
+      var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      d.setAttribute('data-theme', saved || sys);
+    } catch (e) { /* private mode - keep the default */ }
+  })();
+</script>
+</head>
+
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+<div class="grain" aria-hidden="true"></div>
+<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+
+<!-- ======================================================================
+     RAIL - desktop navigation
+     ====================================================================== -->
+<nav class="rail" aria-label="Section navigation">
+  <a class="rail__mark" href="#top" aria-label="Sulaiman Qazi - top of page">
+    <svg viewBox="0 0 40 40" aria-hidden="true">
+      <circle cx="20" cy="20" r="18" class="rail__mark-ring"/>
+      <path d="M13 25.4c1.7 1.5 3.9 2.3 6.4 2.3 3.4 0 5.6-1.6 5.6-4 0-2.2-1.4-3.3-4.6-4.1l-2.1-.5c-3.3-.8-5.1-2.6-5.1-5.4 0-3.4 2.8-5.7 7-5.7 2.3 0 4.3.6 5.8 1.7"
+            class="rail__mark-glyph"/>
+    </svg>
+  </a>
+
+  <ul class="rail__list">
+    <li><a class="rail__item" href="#home"       data-rail="home"><span class="rail__via"></span><span class="rail__label">Home</span><span class="rail__no">00</span></a></li>
+    <li><a class="rail__item" href="#about"      data-rail="about"><span class="rail__via"></span><span class="rail__label">About</span><span class="rail__no">01</span></a></li>
+    <li><a class="rail__item" href="#experience" data-rail="experience"><span class="rail__via"></span><span class="rail__label">Experience</span><span class="rail__no">02</span></a></li>
+    <li><a class="rail__item" href="#projects"   data-rail="projects"><span class="rail__via"></span><span class="rail__label">Projects</span><span class="rail__no">03</span></a></li>
+    <li><a class="rail__item" href="#skills"     data-rail="skills"><span class="rail__via"></span><span class="rail__label">Skills</span><span class="rail__no">04</span></a></li>
+    <li><a class="rail__item" href="#contact"    data-rail="contact"><span class="rail__via"></span><span class="rail__label">Contact</span><span class="rail__no">05</span></a></li>
+  </ul>
+  <div class="rail__trace" aria-hidden="true"><span class="rail__trace-fill"></span></div>
+
+  <div class="rail__tools">
+    <button class="cmdk-trigger rail__cmdk" type="button" data-cmdk-open
+            aria-label="Open command menu">
+      <kbd data-cmdk-key aria-hidden="true">Ctrl K</kbd>
+    </button>
+    <button class="theme-toggle rail__theme" type="button" aria-pressed="false" aria-label="Switch to light theme">
+      <span class="theme-toggle__track"><span class="theme-toggle__knob"></span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ======================================================================
+     TOPBAR - mobile only
+     ====================================================================== -->
+<header class="topbar">
+  <a class="topbar__mark" href="#top">
+    <span class="topbar__mono">SQ</span>
+    <span class="topbar__status"><span class="pulse-dot"></span> Waterloo ’31</span>
+  </a>
+  <div class="topbar__actions">
+    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light theme">
+      <span class="theme-toggle__track"><span class="theme-toggle__knob"></span></span>
+    </button>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
+      <span class="menu-btn__bars" aria-hidden="true"><i></i><i></i></span>
+      <span class="vh">Open navigation</span>
+    </button>
+  </div>
+</header>
+
+<!-- Read position for small screens, where the rail (and its progress
+     trace) is hidden. -->
+<div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__fill"></span></div>
+
+<div class="menu" id="menu" hidden>
+  <ul class="menu__list">
+    <li><a href="#home"><span class="menu__no">00</span> Home</a></li>
+    <li><a href="#about"><span class="menu__no">01</span> About</a></li>
+    <li><a href="#experience"><span class="menu__no">02</span> Experience</a></li>
+    <li><a href="#projects"><span class="menu__no">03</span> Projects</a></li>
+    <li><a href="#skills"><span class="menu__no">04</span> Skills</a></li>
+    <li><a href="#contact"><span class="menu__no">05</span> Contact</a></li>
+  </ul>
+  <div class="menu__foot">
+    <a class="link" href="mailto:s6qazi@uwaterloo.ca">s6qazi@uwaterloo.ca</a>
+  </div>
+</div>
+
+<main id="main" class="main" tabindex="-1">
+<span id="top"></span>
+
+<!-- ======================================================================
+     00 - HOME
+     ====================================================================== -->
+<section class="hero" id="home" aria-labelledby="hero-name">
+  <canvas class="hero__field" id="wavefield" aria-hidden="true"></canvas>
+  <div class="hero__veil" aria-hidden="true"></div>
+
+  <div class="hero__inner shell">
+    <p class="hero__eyebrow label" data-reveal style="--i:0">
+      <span class="pulse-dot"></span> Ontario, Canada
+      <span class="hero__eyebrow-sep">/</span>
+      CS <span class="hero__eyebrow-at">@</span> Waterloo
+    </p>
+
+    <h1 class="hero__name display" id="hero-name" data-reveal style="--i:1">
+      <span class="hero__line"><span class="hero__word">Sulaiman</span></span>
+      <span class="hero__line"><span class="hero__word">Qazi</span></span>
+    </h1>
+
+    <div class="hero__body">
+      <p class="hero__lede lede" data-reveal style="--i:2">
+        Computer Science student at Waterloo. I build emulators, embedded
+        systems, robots and machine learning tools.
+      </p>
+
+      <div class="hero__cta" data-reveal style="--i:3">
+        <a class="btn btn--primary" href="#projects">
+          View projects <span class="btn__arrow" aria-hidden="true">→</span>
+        </a>
+        <a class="btn" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<!-- ======================================================================
+     01 - ABOUT
+     ====================================================================== -->
+<section class="section identity" id="about" aria-labelledby="about-title">
+  <div class="shell">
+    <header class="section-head">
+      <p class="section-slug mono" data-reveal>
+        <span class="section-slug__no">01</span>
+        <span>About</span>
+        <span class="section-slug__rule"></span>
+        <span class="section-slug__meta">Waterloo ’31</span>
+      </p>
+      <div class="section-title-row">
+        <h2 class="h1" id="about-title" data-reveal style="--i:1">
+          Hi, I'm Sulaiman.
+        </h2>
+        <p class="prose" data-reveal style="--i:2">
+          I like working close to the hardware: instruction sets, memory,
+          firmware and the code around them.
+        </p>
+      </div>
+    </header>
+
+    <div class="identity__grid">
+      <!-- Where I've actually written code, by level of abstraction. -->
+      <figure class="layers" data-reveal="fade">
+        <figcaption class="layers__cap label">Where I've written code</figcaption>
+
+        <div class="layers__axis" aria-hidden="true">
+          <span class="layers__axis-top">High level</span>
+          <span class="layers__axis-line"></span>
+          <span class="layers__axis-bot">Close to the metal</span>
+        </div>
+
+        <ol class="layers__list">
+          <li class="layer" style="--d:0">
+            <span class="layer__no num">06</span>
+            <span class="layer__name">Applications</span>
+            <span class="layer__eg">Chaos Roll · Bojon</span>
+          </li>
+          <li class="layer" style="--d:1">
+            <span class="layer__no num">05</span>
+            <span class="layer__name">Libraries &amp; APIs</span>
+            <span class="layer__eg">SDL2 · TensorFlow · Gemini</span>
+          </li>
+          <li class="layer" style="--d:2">
+            <span class="layer__no num">04</span>
+            <span class="layer__name">Languages</span>
+            <span class="layer__eg">C · C++ · Python · Java</span>
+          </li>
+          <li class="layer" style="--d:3">
+            <span class="layer__no num">03</span>
+            <span class="layer__name">Systems</span>
+            <span class="layer__eg">memory maps · I/O · timing</span>
+          </li>
+          <li class="layer" style="--d:4">
+            <span class="layer__no num">02</span>
+            <span class="layer__name">Instruction set</span>
+            <span class="layer__eg">Sharp LR35902 · Cortex-M0+</span>
+          </li>
+          <li class="layer" style="--d:5">
+            <span class="layer__no num">01</span>
+            <span class="layer__name">Hardware</span>
+            <span class="layer__eg">RP2040 · ESP32</span>
+          </li>
+        </ol>
+      </figure>
+
+      <div class="identity__text">
+        <div class="prose stack" data-reveal style="--i:1">
+          <p>
+            I'm studying Computer Science at the
+            <strong>University of Waterloo</strong>, starting in September 2026.
+            This summer I'm at <strong>Sunnybrook Research Institute</strong>,
+            building ultrasound simulations and a model for red blood cell
+            detection.
+          </p>
+          <p>
+            Last summer at Sunnybrook, I wrote RP2040 firmware and designed a
+            four-layer test board. It cut costs by <strong>33%</strong> and ran
+            automated tests.
+          </p>
+          <p>
+            I also lead school tech clubs, program FTC robots and teach coding.
+          </p>
+        </div>
+
+        <dl class="specs" data-reveal style="--i:2">
+          <div class="specs__row"><dt>Program</dt><dd>Bachelor of Computer Science</dd></div>
+          <div class="specs__row"><dt>University</dt><dd>University of Waterloo</dd></div>
+          <div class="specs__row"><dt>Currently</dt><dd><span class="pulse-dot"></span> Engineering intern, Sunnybrook</dd></div>
+          <div class="specs__row"><dt>Interests</dt><dd>Systems · Emulation · AI · Firmware</dd></div>
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     02 - EXPERIENCE
+     ====================================================================== -->
+<section class="section record" id="experience" aria-labelledby="experience-title">
+  <div class="shell">
+    <header class="section-head">
+      <p class="section-slug mono" data-reveal>
+        <span class="section-slug__no">02</span>
+        <span>Experience</span>
+        <span class="section-slug__rule"></span>
+        <span class="section-slug__meta">2022 - 2031</span>
+      </p>
+      <div class="section-title-row">
+        <h2 class="h1" id="experience-title" data-reveal style="--i:1">Experience.</h2>
+        <p class="prose" data-reveal style="--i:2">
+          Research, firmware, robotics and teaching.
+        </p>
+      </div>
+    </header>
+
+    <div class="filters" role="group" aria-label="Filter timeline entries" data-reveal>
+      <button class="filters__btn is-active" type="button" data-filter="all"  aria-pressed="true">All <span class="filters__n num">9</span></button>
+      <button class="filters__btn" type="button" data-filter="work" aria-pressed="false">Work <span class="filters__n num">4</span></button>
+      <button class="filters__btn" type="button" data-filter="lead" aria-pressed="false">Leadership <span class="filters__n num">3</span></button>
+      <button class="filters__btn" type="button" data-filter="edu"  aria-pressed="false">Education <span class="filters__n num">2</span></button>
+    </div>
+
+    <ol class="timeline" id="timeline">
+      <li class="tl" data-cat="work" data-reveal style="--i:0">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Jul 2026</span><span class="tl__now">Present</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">
+            <img class="org-logo" src="assets/img/sunnybrook.png" alt="" loading="lazy" decoding="async">
+            Sunnybrook Research Institute <span class="chip chip--live">Current</span>
+          </p>
+          <h3 class="h3 tl__role">Engineering Research Intern</h3>
+          <ul class="tl__points">
+            <li>Built ultrasound simulations in MATLAB, Python and k-Wave.</li>
+            <li>Trained a TensorFlow model to detect red blood cells.</li>
+            <li>Designed a 3D-printed spine model for testing.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">TensorFlow</span><span class="tag">k-Wave</span><span class="tag">SOLIDWORKS</span></div>
+        </div>
+      </li>
+
+      <li class="tl" data-cat="work" data-reveal style="--i:1">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Jul 2025</span><span>Aug 2025</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">
+            <img class="org-logo" src="assets/img/sunnybrook.png" alt="" loading="lazy" decoding="async">
+            Sunnybrook Research Institute
+          </p>
+          <h3 class="h3 tl__role">Firmware Engineering Intern</h3>
+          <ul class="tl__points">
+            <li>Wrote embedded C++ for an RP2040 test system.</li>
+            <li>Designed its four-layer PCB in Altium.</li>
+            <li>Hand-soldered 200+ parts, cut costs by 33% and added automated tests.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Embedded C++</span><span class="tag">RP2040</span><span class="tag">GitLab</span><span class="tag">Altium</span></div>
+        </div>
+      </li>
+
+      <li class="tl" data-cat="lead" data-reveal style="--i:2">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Feb 2025</span><span>Jun 2026</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">FTC 22603 · Hurricane Stormbots</p>
+          <h3 class="h3 tl__role">Programmer</h3>
+          <ul class="tl__points">
+            <li>Programmed autonomous odometry in Java.</li>
+            <li>Won the 1st Inspire Award and Think Award at the Canada World Cup.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Java</span><span class="tag">Odometry</span><span class="tag">Autonomous</span></div>
+          <p class="build__links">
+            <a class="link mono" href="https://github.com/sulaimwn/HurricaneCode" target="_blank" rel="noopener noreferrer">Robot code <span aria-hidden="true">↗</span></a>
+          </p>
+        </div>
+      </li>
+
+      <li class="tl" data-cat="lead" data-reveal style="--i:3">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Sep 2024</span><span>Jun 2026</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">
+            <img class="org-logo" src="assets/img/jcr-crest.png" alt="" loading="lazy" decoding="async">
+            J. Clarke Richardson Collegiate
+          </p>
+          <h3 class="h3 tl__role">Co-President - Math, STEM &amp; CS Clubs</h3>
+          <ul class="tl__points">
+            <li>Led weekly activities for 250+ members across three clubs.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Leadership</span><span class="tag">Curriculum</span><span class="tag">Events</span></div>
+        </div>
+      </li>
+
+      <li class="tl" data-cat="lead" data-reveal style="--i:4">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Feb 2023</span><span>Jan 2026</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">Youth Dream Canada</p>
+          <h3 class="h3 tl__role">Coding Mentor</h3>
+          <ul class="tl__points">
+            <li>Taught coding through hands-on projects.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Teaching</span><span class="tag">Python</span></div>
+        </div>
+      </li>
+
+      <li class="tl" data-cat="work" data-reveal style="--i:5">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Jun 2024</span><span>Aug 2024</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">The STEAM Project</p>
+          <h3 class="h3 tl__role">Summer Camp Counsellor</h3>
+          <ul class="tl__points">
+            <li>Led hands-on STEAM activities for campers.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">Teaching</span><span class="tag">STEAM</span></div>
+        </div>
+      </li>
+
+      <li class="tl" data-cat="lead" data-reveal style="--i:6">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Sep 2022</span><span>Jun 2025</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">VEX Robotics · Stormbots 50760A</p>
+          <h3 class="h3 tl__role">Head Captain</h3>
+          <ul class="tl__points">
+            <li>Led an eight-person team to a regional bronze medal.</li>
+          </ul>
+          <div class="tag-row"><span class="tag">VEX</span><span class="tag">Team lead</span></div>
+        </div>
+      </li>
+
+      <li class="tl tl--edu" data-cat="edu" data-reveal style="--i:7">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Sep 2026</span><span>May 2031</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">
+            <img class="org-logo org-logo--pad" src="assets/img/uwaterloo-seal.png" alt="" loading="lazy" decoding="async">
+            University of Waterloo
+          </p>
+          <h3 class="h3 tl__role">Bachelor of Computer Science</h3>
+          <ul class="tl__points"><li>Waterloo, Ontario.</li></ul>
+        </div>
+      </li>
+
+      <li class="tl tl--edu" data-cat="edu" data-reveal style="--i:8">
+        <span class="tl__node" aria-hidden="true"></span>
+        <div class="tl__when"><span class="num">Sep 2022</span><span>Jun 2026</span></div>
+        <div class="tl__what">
+          <p class="tl__org label">
+            <img class="org-logo" src="assets/img/jcr-crest.png" alt="" loading="lazy" decoding="async">
+            J. Clarke Richardson Collegiate
+          </p>
+          <h3 class="h3 tl__role">Ontario Secondary School Diploma</h3>
+          <ul class="tl__points">
+            <li>President of the Computer Science, STEM and Math clubs.</li>
+            <li>Head Captain of VEX Robotics 50760A; programmer for FTC 22603.</li>
+          </ul>
+        </div>
+      </li>
+    </ol>
+    <p class="timeline__empty" hidden>No entries in this category.</p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     03 - PROJECTS
+     ====================================================================== -->
+<section class="section builds" id="projects" aria-labelledby="projects-title">
+  <div class="shell">
+    <header class="section-head">
+      <p class="section-slug mono" data-reveal>
+        <span class="section-slug__no">03</span>
+        <span>Projects</span>
+        <span class="section-slug__rule"></span>
+        <span class="section-slug__meta">5 selected</span>
+      </p>
+      <div class="section-title-row">
+        <h2 class="h1" id="projects-title" data-reveal style="--i:1">Projects.</h2>
+        <p class="prose" data-reveal style="--i:2">
+          Emulators, AI games and custom hardware.
+        </p>
+      </div>
+    </header>
+
+    <!-- FEATURED --------------------------------------------------------- -->
+    <article class="build build--feature" data-reveal="fade">
+      <div class="build__art build__art--shot">
+        <img src="assets/img/chaos-roll.png"
+             alt="Chaos Roll title screen: a generative survival arena with a pixel-art character and a start run button."
+             loading="lazy" decoding="async">
+      </div>
+      <div class="build__body">
+        <p class="build__award"><span class="build__medal" aria-hidden="true">★</span> 1st Place Overall - Hack the Valley Hack Day</p>
+        <h3 class="h2 build__title">Chaos Roll</h3>
+        <p class="build__sub label">Wave-survival game · Gemini-generated content</p>
+        <p class="prose">
+          A wave-survival game where Gemini creates new abilities every 15
+          seconds. The game checks each one before adding it to a run. You also
+          race an AI through the same waves.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Gemini API</span><span class="tag">TypeScript</span>
+          <span class="tag">React</span><span class="tag">Vite</span>
+          <span class="tag">Procedural generation</span>
+        </div>
+        <p class="build__links">
+          <a class="link mono" href="https://devpost.com/software/live-forge" target="_blank" rel="noopener noreferrer">Devpost <span aria-hidden="true">↗</span></a>
+          <a class="link mono" href="https://github.com/HisMonDon/htv_hack_day" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+        </p>
+      </div>
+    </article>
+
+    <!-- SECOND ----------------------------------------------------------- -->
+    <article class="build build--wide build--flip" data-reveal="fade">
+      <div class="build__art build__art--shot">
+        <img src="assets/img/bojon.png"
+             alt="Bojon landing screen: Enter the Interview Arena, with a start my interview battle button."
+             loading="lazy" decoding="async">
+      </div>
+      <div class="build__body">
+        <p class="build__award"><span class="build__medal" aria-hidden="true">★</span> Ribbon Prize - Hack the 6ix 2025</p>
+        <h3 class="h2 build__title">Bojon</h3>
+        <p class="build__sub label">Competitive 1v1 interview practice</p>
+        <p class="prose">
+          Head-to-head interview practice. Gemini writes the questions, Twelve
+          Labs scores the video answers and the winner gains Elo.
+        </p>
+        <div class="tag-row">
+          <span class="tag">Gemini Pro</span><span class="tag">Twelve Labs</span>
+          <span class="tag">MongoDB</span><span class="tag">Auth0</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <p class="build__links">
+          <a class="link mono" href="https://devpost.com/software/bojon" target="_blank" rel="noopener noreferrer">Devpost <span aria-hidden="true">↗</span></a>
+          <a class="link mono" href="https://github.com/MrJelloCode/Bojon" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+        </p>
+      </div>
+    </article>
+
+    <!-- PAIR - the two emulators -------------------------------------- -->
+    <div class="build-pair">
+      <article class="build build--tall" data-reveal="fade">
+        <div class="build__art build__art--tall">
+          <span class="build__hint" aria-hidden="true">Move to scrub</span>
+          <div class="sprite sprite--gameboy" role="img"
+               aria-label="Sulaiman's Game Boy emulator running a commercial ROM: two fighters trading blows on a stage."></div>
+          <span class="build__scan" aria-hidden="true"></span>
+        </div>
+        <div class="build__body">
+          <h3 class="h2 build__title">Game Boy Emulator</h3>
+          <p class="build__sub label">C · SDL2 · Sharp LR35902</p>
+          <p class="prose">
+            A Game Boy emulator in C with a working LR35902 CPU, memory map, I/O,
+            PPU, input and SDL2 rendering.
+          </p>
+          <div class="tag-row"><span class="tag">C</span><span class="tag">SDL2</span><span class="tag">CMake</span><span class="tag">Architecture</span></div>
+          <p class="build__links">
+            <a class="link mono" href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+          </p>
+        </div>
+      </article>
+
+      <article class="build build--tall" data-reveal="fade">
+        <div class="build__art build__art--tall build__art--gif">
+          <img src="assets/img/chip8-emulator.gif"
+               alt="CHIP-8 emulator running in a desktop browser."
+               loading="lazy" decoding="async">
+        </div>
+        <div class="build__body">
+          <h3 class="h2 build__title">CHIP-8 Interpreter</h3>
+          <p class="build__sub label">C++ · SDL2 · 64×32 display</p>
+          <p class="prose">
+            My first emulator: 35 opcodes, a 64×32 display, timers and a hex
+            keypad. It runs real CHIP-8 ROMs.
+          </p>
+          <div class="tag-row"><span class="tag">C++</span><span class="tag">SDL2</span><span class="tag">Interpreters</span></div>
+          <p class="build__links">
+            <a class="link mono" href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+          </p>
+        </div>
+      </article>
+    </div>
+
+    <!-- HARDWARE --------------------------------------------------------- -->
+    <article class="build build--wide" data-reveal="fade">
+      <div class="build__art build__art--shot build__art--schematic">
+        <img src="assets/img/smartwatch-schematic.png"
+             alt="Complete ESP32 smartwatch schematic showing power, display, sensors, storage and connector circuits."
+             loading="lazy" decoding="async">
+      </div>
+      <div class="build__body">
+        <h3 class="h2 build__title">Health Tracking Smartwatch</h3>
+        <p class="build__sub label">ESP32 · custom PCB · Arduino</p>
+        <p class="prose">
+          An ESP32 smartwatch with a custom PCB, TFT display, heart-rate sensor
+          and step tracking. I designed the board, reflowed it and wrote the
+          firmware.
+        </p>
+        <div class="tag-row"><span class="tag">ESP32</span><span class="tag">Arduino</span><span class="tag">PCB design</span></div>
+        <p class="build__links">
+          <a class="link mono" href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
+        </p>
+      </div>
+    </article>
+
+    <p class="builds__more" data-reveal>
+      <a class="link mono" href="https://github.com/sulaimwn" target="_blank" rel="noopener noreferrer">
+        More on GitHub <span aria-hidden="true">↗</span>
+      </a>
+      <a class="link mono" href="https://devpost.com/sulaimanqazi" target="_blank" rel="noopener noreferrer">
+        Devpost <span aria-hidden="true">↗</span>
+      </a>
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================================
+     04 - SKILLS
+     ====================================================================== -->
+<section class="section stack-sec" id="skills" aria-labelledby="skills-title">
+  <div class="shell">
+    <header class="section-head">
+      <p class="section-slug mono" data-reveal>
+        <span class="section-slug__no">04</span>
+        <span>Skills</span>
+        <span class="section-slug__rule"></span>
+        <span class="section-slug__meta">Toolkit</span>
+      </p>
+      <div class="section-title-row">
+        <h2 class="h1" id="skills-title" data-reveal style="--i:1">Skills &amp; tools.</h2>
+      </div>
+    </header>
+
+    <div class="proof">
+      <section class="proof__group" data-reveal="fade">
+        <h3 class="proof__title label">Languages</h3>
+        <ul class="proof__rows">
+          <li class="proof__row">
+            <span class="proof__skill">C</span>
+            <span class="proof__use">Game Boy CPU, PPU and memory</span>
+            <a class="proof__link" href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer" aria-label="C: Game Boy emulator source"><span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">C++</span>
+            <span class="proof__use">CHIP-8 and RP2040 firmware</span>
+            <a class="proof__link" href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer" aria-label="C++: CHIP-8 interpreter source"><span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Python</span>
+            <span class="proof__use">Ultrasound simulation and TensorFlow</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Java</span>
+            <span class="proof__use">FTC autonomous odometry</span>
+            <a class="proof__link" href="https://github.com/sulaimwn/HurricaneCode" target="_blank" rel="noopener noreferrer" aria-label="Java: FTC robot code"><span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">TypeScript</span>
+            <span class="proof__use">Chaos Roll ability system</span>
+            <a class="proof__link" href="https://github.com/HisMonDon/htv_hack_day" target="_blank" rel="noopener noreferrer" aria-label="TypeScript: Chaos Roll source"><span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">JavaScript</span>
+            <span class="proof__use">Bojon, Chaos Roll and this site</span>
+            <a class="proof__link" href="https://github.com/MrJelloCode/Bojon" target="_blank" rel="noopener noreferrer" aria-label="JavaScript: Bojon source"><span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">MATLAB</span>
+            <span class="proof__use">k-Wave ultrasound simulation</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">PHP · MySQL</span>
+            <span class="proof__use">School projects and a small forum</span>
+            <span class="proof__link"></span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="proof__group" data-reveal="fade">
+        <h3 class="proof__title label">Libraries &amp; platforms</h3>
+        <ul class="proof__rows">
+          <li class="proof__row">
+            <span class="proof__skill">SDL2</span>
+            <span class="proof__use">Emulator rendering and input</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">TensorFlow</span>
+            <span class="proof__use">Red blood cell detection</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Gemini API</span>
+            <span class="proof__use">Abilities and interview questions</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Twelve Labs</span>
+            <span class="proof__use">Video answer scoring</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">React · Vite</span>
+            <span class="proof__use">Chaos Roll front end</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">MongoDB · Auth0</span>
+            <span class="proof__use">Bojon accounts and matchmaking</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">k-Wave</span>
+            <span class="proof__use">Ultrasound research</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Git · GitLab</span>
+            <span class="proof__use">Projects and lab work</span>
+            <span class="proof__link"></span>
+          </li>
+        </ul>
+      </section>
+
+      <section class="proof__group" data-reveal="fade">
+        <h3 class="proof__title label">Hardware</h3>
+        <ul class="proof__rows">
+          <li class="proof__row">
+            <span class="proof__skill">RP2040</span>
+            <span class="proof__use">Automated tester firmware and PCB</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">ESP32</span>
+            <span class="proof__use">Health tracking smartwatch</span>
+            <a class="proof__link" href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer" aria-label="ESP32: smartwatch project"><span aria-hidden="true">↗</span></a>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Altium · KiCad</span>
+            <span class="proof__use">Four-layer PCB</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">SMD soldering</span>
+            <span class="proof__use">200+ joints and hot-plate reflow</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">SOLIDWORKS</span>
+            <span class="proof__use">3D-printed spine model</span>
+            <span class="proof__link"></span>
+          </li>
+          <li class="proof__row">
+            <span class="proof__skill">Blender · Fusion 360</span>
+            <span class="proof__use">Research models</span>
+            <span class="proof__link"></span>
+          </li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<!-- ======================================================================
+     05 - CONTACT
+     ====================================================================== -->
+<section class="section contact" id="contact" aria-labelledby="contact-title">
+  <div class="contact__bg" aria-hidden="true">
+    <img src="assets/img/contact-bg.jpg" alt="" role="presentation" loading="lazy" decoding="async">
+  </div>
+  <div class="shell">
+    <header class="section-head">
+      <p class="section-slug mono" data-reveal>
+        <span class="section-slug__no">05</span>
+        <span>Contact</span>
+        <span class="section-slug__rule"></span>
+        <span class="section-slug__meta">Open to internships</span>
+      </p>
+    </header>
+
+    <div class="contact__grid">
+      <div>
+        <h2 class="h1 contact__title" id="contact-title" data-reveal>
+          Get in touch.
+        </h2>
+        <p class="lede contact__lede" data-reveal style="--i:1">
+          Open to internships, hackathons and systems or AI projects. Email me.
+        </p>
+      </div>
+
+      <ul class="pins" data-reveal="fade">
+        <li class="pin">
+          <span class="pin__no num">1</span>
+          <a class="pin__link" href="mailto:s6qazi@uwaterloo.ca">
+            <span class="pin__k label">Email</span>
+            <span class="pin__v">s6qazi@uwaterloo.ca</span>
+          </a>
+          <button class="pin__copy" type="button" data-copy="s6qazi@uwaterloo.ca">
+            <span class="pin__copy-txt">Copy</span>
+          </button>
+        </li>
+        <li class="pin">
+          <span class="pin__no num">2</span>
+          <a class="pin__link" href="https://www.linkedin.com/in/sulaimanq/" target="_blank" rel="noopener noreferrer">
+            <span class="pin__k label">LinkedIn</span>
+            <span class="pin__v">/in/sulaimanq <span class="pin__ext" aria-hidden="true">↗</span></span>
+          </a>
+        </li>
+        <li class="pin">
+          <span class="pin__no num">3</span>
+          <a class="pin__link" href="https://github.com/sulaimwn" target="_blank" rel="noopener noreferrer">
+            <span class="pin__k label">GitHub</span>
+            <span class="pin__v">@sulaimwn <span class="pin__ext" aria-hidden="true">↗</span></span>
+          </a>
+        </li>
+        <li class="pin pin--static">
+          <span class="pin__no num">4</span>
+          <span class="pin__link">
+            <span class="pin__k label">Location</span>
+            <span class="pin__v">Ontario, Canada · <span class="num" id="clock">-</span> ET</span>
+          </span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="shell foot__inner">
+    <p class="label">Sulaiman Qazi - <span class="num">2026</span></p>
+    <p class="label">
+      <a class="link" href="#top">Back to top ↑</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ======================================================================
+     COMMAND MENU
+     ====================================================================== -->
+<dialog class="cmdk" id="cmdk" aria-label="Command menu">
+  <div class="cmdk__bar">
+    <span class="cmdk__prompt" aria-hidden="true">&gt;</span>
+    <input class="cmdk__input" id="cmdk-input" type="text"
+           autocomplete="off" autocorrect="off" spellcheck="false"
+           placeholder="Jump to a section, copy an email, open a repo…"
+           role="combobox" aria-expanded="true" aria-controls="cmdk-list"
+           aria-autocomplete="list" aria-label="Search commands">
+    <kbd aria-hidden="true">esc</kbd>
+  </div>
+
+  <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Commands"></ul>
+  <p class="cmdk__empty" hidden>No matching commands.</p>
+
+  <div class="cmdk__foot" aria-hidden="true">
+    <span><kbd>↑</kbd><kbd>↓</kbd> move</span>
+    <span><kbd>↵</kbd> run</span>
+    <span><kbd>esc</kbd> close</span>
+  </div>
+
+  <p class="vh" id="cmdk-status" aria-live="polite"></p>
+</dialog>
+
+<script src="assets/js/wavefield.js"></script>
+<script src="assets/js/art.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/cmdk.js"></script>
+<script src="assets/js/enhance.js"></script>
+</body>
+</html>

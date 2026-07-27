@@ -1,0 +1,134 @@
+/* ==========================================================================
+   HERO - a wave field with a name standing in front of it.
+   ========================================================================== */
+
+.hero {
+  position: relative;
+  min-height: 100vh;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: clamp(5rem, 14vh, 9rem);
+  padding-bottom: clamp(5.5rem, 12vh, 8rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.hero__field {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  opacity: 0;
+  transition: opacity 1400ms var(--ease-out);
+}
+
+.hero__field.is-live { opacity: 1; }
+
+/* Keeps the type legible no matter what the simulation is doing. */
+.hero__veil {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(115% 85% at 6% 82%,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 30%,
+      color-mix(in srgb, var(--bg) 40%, transparent) 55%,
+      transparent 74%),
+    linear-gradient(180deg,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 30%, transparent) 20%,
+      transparent 45%,
+      color-mix(in srgb, var(--bg) 55%, transparent) 82%,
+      var(--bg) 100%);
+}
+
+/* On a narrow screen the copy runs the full width, so the off-centre
+   radial scrim can't protect it. Use an even wash instead. */
+@media (max-width: 760px) {
+  .hero__veil {
+    background: linear-gradient(180deg,
+      var(--bg) 0%,
+      color-mix(in srgb, var(--bg) 58%, transparent) 18%,
+      color-mix(in srgb, var(--bg) 72%, transparent) 52%,
+      color-mix(in srgb, var(--bg) 88%, transparent) 86%,
+      var(--bg) 100%);
+  }
+}
+
+.hero__inner {
+  position: relative;
+  display: grid;
+  gap: clamp(var(--sp-5), 3.2vh, var(--sp-7));
+  padding-left: calc(var(--gutter) + var(--rail));
+  width: 100%;
+  max-width: calc(var(--max) + var(--gutter) * 2 + var(--rail));
+}
+
+/* Eyebrow ----------------------------------------------------------------- */
+
+.hero__eyebrow {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  color: var(--ink-2);
+}
+
+.hero__eyebrow-sep { color: var(--ink-4); }
+.hero__eyebrow-at  { color: var(--copper); }
+
+/* Name -------------------------------------------------------------------- */
+
+.hero__name {
+  margin: 0;
+  color: var(--ink);
+}
+
+.hero__line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.06em;
+  margin-bottom: -0.06em;
+}
+
+.hero__word { display: block; }
+
+/* Second line is drawn as an outline - the same shape, different material. */
+@supports (-webkit-text-stroke: 1px currentColor) {
+  .hero__line + .hero__line .hero__word {
+    -webkit-text-stroke: clamp(1px, 0.13vw, 2px) var(--ink);
+    color: transparent;
+  }
+}
+
+.js .hero__name[data-reveal] .hero__word {
+  transform: translate3d(0, 106%, 0);
+  transition: transform 1150ms var(--ease-expo);
+}
+
+.js .hero__name[data-reveal] .hero__line + .hero__line .hero__word {
+  transition-delay: 110ms;
+}
+
+.js .hero__name[data-reveal].is-in .hero__word { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .hero__name[data-reveal] .hero__word { transform: none; }
+}
+
+/* Body -------------------------------------------------------------------- */
+
+.hero__body {
+  display: grid;
+  gap: clamp(var(--sp-5), 3vh, var(--sp-6));
+  max-width: 62ch;
+}
+
+.hero__lede { margin: 0; }
+
+.hero__cta { display: flex; flex-wrap: wrap; gap: var(--sp-3); }
