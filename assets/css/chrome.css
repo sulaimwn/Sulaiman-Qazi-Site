@@ -564,13 +564,8 @@
   justify-content: center;
 }
 
-.builds__devpost {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-}
-
-.webring--inline {
+.webring--profile {
+  align-self: center;
   gap: 1px;
   padding: 1px;
   border: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
@@ -606,8 +601,19 @@
   transition: opacity 120ms var(--ease-out), transform 120ms var(--ease-out);
 }
 
-.webring--inline:hover,
-.webring--inline:focus-within { opacity: 1; border-color: var(--line-strong); }
+.webring--profile:hover,
+.webring--profile:focus-within { opacity: 1; border-color: var(--line-strong); }
+
+.intro__links .webring__nav,
+.intro__links .webring__home {
+  width: 21px;
+  height: 21px;
+  padding: 0;
+  box-shadow: none;
+}
+
+.intro__links .webring__nav:hover,
+.intro__links .webring__home:hover { box-shadow: none; }
 
 .webring__nav:hover,
 .webring__home:hover { color: var(--copper); background: var(--copper-wash); }
