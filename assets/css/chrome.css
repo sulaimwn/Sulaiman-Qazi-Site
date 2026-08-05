@@ -559,61 +559,48 @@
 .foot__mid { flex: 1 1 auto; text-align: center; }
 
 .webring {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   justify-content: center;
+  gap: var(--sp-2);
 }
 
-.webring--profile {
-  align-self: center;
-  gap: 1px;
-  padding: 1px;
-  border: 1px solid color-mix(in srgb, var(--line) 76%, transparent);
+.webring--top {
+  position: absolute;
+  top: var(--sp-4);
+  right: var(--gutter);
+  z-index: 65;
+  padding: 2px;
+  border: 1px solid var(--line);
   border-radius: var(--radius-sm);
-  opacity: .72;
-  transition: opacity 120ms var(--ease-out), border-color 120ms var(--ease-out);
+  background: var(--surface-glass);
+  backdrop-filter: blur(14px) saturate(1.3);
 }
 
 .webring__nav,
 .webring__home {
   display: inline-grid;
-  width: 21px;
-  height: 21px;
+  width: 32px;
+  height: 32px;
   place-items: center;
   color: var(--ink-3);
-  border-radius: 2px;
   text-decoration: none;
   transition: color 120ms var(--ease-out), background-color 120ms var(--ease-out);
 }
 
 .webring__nav {
   font-family: var(--font-mono);
-  font-size: .72rem;
-  line-height: 1;
+  font-size: 1rem;
 }
 
 .webring__home img {
   display: block;
-  width: 16px;
-  height: 16px;
+  width: 24px;
+  height: 24px;
   object-fit: contain;
-  opacity: .86;
+  opacity: .88;
   transition: opacity 120ms var(--ease-out), transform 120ms var(--ease-out);
 }
-
-.webring--profile:hover,
-.webring--profile:focus-within { opacity: 1; border-color: var(--line-strong); }
-
-.intro__links .webring__nav,
-.intro__links .webring__home {
-  width: 21px;
-  height: 21px;
-  padding: 0;
-  box-shadow: none;
-}
-
-.intro__links .webring__nav:hover,
-.intro__links .webring__home:hover { box-shadow: none; }
 
 .webring__nav:hover,
 .webring__home:hover { color: var(--copper); background: var(--copper-wash); }
@@ -623,6 +610,25 @@
 .webring__home:focus-visible {
   outline: 2px solid var(--copper);
   outline-offset: 2px;
+}
+
+@media (max-width: 899px) {
+  .webring--top {
+    top: var(--sp-3);
+    right: auto;
+    left: 50%;
+    z-index: 72;
+    gap: 2px;
+    padding: 0;
+    transform: translateX(-50%);
+  }
+
+  .webring--top .webring__nav,
+  .webring--top .webring__home { width: 28px; height: 34px; }
+}
+
+@media (max-width: 560px) {
+  .topbar__status { display: none; }
 }
 
 @media (max-width: 720px) {
