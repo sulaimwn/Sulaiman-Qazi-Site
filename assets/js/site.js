@@ -1,5 +1,5 @@
 /* ==========================================================================
-   SITE - reveals, rail scroll-spy, theme, menu, filters, cursor, details.
+   SITE - reveals, rail scroll-spy, theme, menu, the roll, cursor, copy.
    No framework, no dependencies.
    ========================================================================== */
 
@@ -195,73 +195,9 @@
     });
   })();
 
-  /* ==================================================================== */
-  /* TIMELINE FILTERS                                                     */
-  /* ==================================================================== */
-
-  (function filters() {
-    var buttons = $$('.filters__btn');
-    var entries = $$('.tl');
-    var empty = $('.timeline__empty');
-    var list = $('#timeline');
-    if (!buttons.length || !entries.length) return;
-
-    function apply(cat) {
-      var visible = [];
-      entries.forEach(function (el) {
-        var match = cat === 'all' || el.getAttribute('data-cat') === cat;
-        el.classList.toggle('is-hidden', !match);
-        el.classList.remove('is-tail');
-        if (match) visible.push(el);
-      });
-      // The trace should stop at the last entry still on screen, not at the
-      // last one in the DOM - otherwise filtering leaves a line dangling.
-      if (visible.length) visible[visible.length - 1].classList.add('is-tail');
-      if (empty) empty.hidden = visible.length > 0;
-    }
-
-    function select(cat, animate) {
-      buttons.forEach(function (b) {
-        var on = b.getAttribute('data-filter') === cat;
-        b.classList.toggle('is-active', on);
-        b.setAttribute('aria-pressed', String(on));
-      });
-
-      if (!animate || reduced.matches || !list) { apply(cat); return; }
-
-      // Fade the list out, swap, fade back - cheaper and calmer than a
-      // per-item reflow animation.
-      list.style.transition = 'opacity 160ms ease';
-      list.style.opacity = '0';
-      setTimeout(function () {
-        apply(cat);
-        list.style.opacity = '1';
-        setTimeout(function () { list.style.transition = ''; }, 200);
-      }, 160);
-    }
-
-    /* The filter lives in the URL so a filtered view can be linked and
-       survives a reload. "all" drops the parameter rather than writing
-       ?exp=all, keeping the clean URL clean. */
-    function writeUrl(cat) {
-      var url = new URL(location.href);
-      if (cat === 'all') url.searchParams.delete('exp');
-      else url.searchParams.set('exp', cat);
-      history.replaceState(null, '', url.pathname + url.search + url.hash);
-    }
-
-    buttons.forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var cat = btn.getAttribute('data-filter');
-        select(cat, true);
-        writeUrl(cat);
-      });
-    });
-
-    var known = buttons.map(function (b) { return b.getAttribute('data-filter'); });
-    var initial = new URL(location.href).searchParams.get('exp');
-    if (initial && known.indexOf(initial) !== -1 && initial !== 'all') select(initial, false);
-  })();
+  /* The experience category filter used to live here. It is gone: the
+     section is ranked by layout now, and the roll of smaller roles is plain
+     <details>, which needs no script. See sections.css for the reasoning. */
 
   /* ==================================================================== */
   /* BUTTON FILL ORIGIN - the sweep starts from the edge you entered      */

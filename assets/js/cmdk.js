@@ -54,16 +54,13 @@
 
   var COMMANDS = [
     { g: 'Go to', icon: '#', label: 'Home',       keys: 'top hero start',            run: go('home') },
-    { g: 'Go to', icon: '#', label: 'About',      keys: 'bio intro who',             run: go('about') },
     { g: 'Go to', icon: '#', label: 'Experience', keys: 'work timeline sunnybrook internship', run: go('experience') },
     { g: 'Go to', icon: '#', label: 'Projects',   keys: 'builds emulator chaos bojon gameboy chip8', run: go('projects') },
     { g: 'Go to', icon: '#', label: 'Skills',     keys: 'tools languages stack',     run: go('skills') },
     { g: 'Go to', icon: '#', label: 'Contact',    keys: 'email reach hire',          run: go('contact') },
 
-    { g: 'Filter experience', icon: '=', label: 'Show all',        keys: 'reset everything', run: filter('all') },
-    { g: 'Filter experience', icon: '=', label: 'Show work only',  keys: 'jobs internships', run: filter('work') },
-    { g: 'Filter experience', icon: '=', label: 'Show leadership', keys: 'clubs robotics teaching', run: filter('lead') },
-    { g: 'Filter experience', icon: '=', label: 'Show education',  keys: 'school waterloo degree', run: filter('edu') },
+    { g: 'Experience', icon: '=', label: 'Expand every other role', keys: 'robotics ftc vex clubs teaching mentor camp open detail', run: rolls(true) },
+    { g: 'Experience', icon: '=', label: 'Collapse other roles',    keys: 'close hide tidy', run: rolls(false) },
 
     { g: 'Actions', icon: '@', label: 'Copy email address', keys: 'clipboard mail', meta: EMAIL, run: copyEmail },
     { g: 'Actions', icon: '@', label: 'Send an email',      keys: 'mailto contact write', run: function () { close(); location.href = 'mailto:' + EMAIL; } },
@@ -82,14 +79,16 @@
       } }
   ];
 
-  function filter(cat) {
+  /* Four rows to click through one at a time is four clicks; the command
+     menu is where "just show me all of it" belongs. */
+  function rolls(open) {
     return function () {
       close();
-      var btn = document.querySelector('.filters__btn[data-filter="' + cat + '"]');
-      if (!btn) return;
-      btn.click();
+      var items = [].slice.call(document.querySelectorAll('.roll__d'));
+      if (!items.length) return;
+      items.forEach(function (d) { d.open = open; });
       requestAnimationFrame(function () {
-        var s = document.getElementById('experience');
+        var s = document.getElementById('roll');
         if (s) s.scrollIntoView({ behavior: prefersReduced() ? 'auto' : 'smooth', block: 'start' });
       });
     };

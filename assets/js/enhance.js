@@ -116,6 +116,44 @@
   })();
 
   /* ====================================================================== */
+  /* PRINT - the paper copy is the whole record                              */
+  /*                                                                         */
+  /* A closed <details> cannot be forced open from a stylesheet: the         */
+  /* browser hides the content in its own rendering model, not with a        */
+  /* display rule print.css could override. So the smaller roles are         */
+  /* opened for the print and put back afterwards - nobody hits Ctrl+P       */
+  /* expecting to lose half the experience section.                          */
+  /* ====================================================================== */
+
+  (function printRoll() {
+    var items = $$('.roll__d');
+    if (!items.length) return;
+
+    var wasOpen = [];
+
+    function expand() {
+      wasOpen = items.map(function (d) { return d.open; });
+      items.forEach(function (d) { d.open = true; });
+    }
+
+    function restore() {
+      items.forEach(function (d, i) { d.open = wasOpen[i]; });
+    }
+
+    window.addEventListener('beforeprint', expand);
+    window.addEventListener('afterprint', restore);
+
+    /* Safari fires neither event, but it does flip this media query, and it
+       is the only signal available there. */
+    if (window.matchMedia) {
+      var mq = window.matchMedia('print');
+      var onChange = function (e) { e.matches ? expand() : restore(); };
+      if (mq.addEventListener) mq.addEventListener('change', onChange);
+      else if (mq.addListener) mq.addListener(onChange);
+    }
+  })();
+
+  /* ====================================================================== */
   /* KEYBOARD SECTION JUMP - j / k, like a pager                             */
   /* ====================================================================== */
 

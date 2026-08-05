@@ -1,227 +1,153 @@
 /* ==========================================================================
-   SECTIONS - about, experience, interlude, skills, contact.
+   SECTIONS - experience, interlude, skills, contact.
    ========================================================================== */
 
 /* ==========================================================================
-   01 - ABOUT
+   01 - EXPERIENCE
    ========================================================================== */
 
-.identity__grid {
-  display: grid;
-  gap: clamp(var(--sp-8), 6vw, var(--sp-11));
-  align-items: start;
-}
-
-@media (min-width: 1000px) {
-  .identity__grid { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); }
-}
-
 /* --------------------------------------------------------------------------
-   Abstraction stack - the levels I've actually written code at.
+   The record is three groups, not one list.
+
+   This section used to be a flat run of nine entries with a category filter
+   bar on top. Two things were wrong with that. Nobody filters - they scroll,
+   and the default view was all nine at identical weight. And the two entries
+   a reader actually goes looking for (which university, which school) sat
+   dead last, behind seven others.
+
+   So the ranking is built into the layout instead of being offered as a
+   control: education first and compact, three roles at full weight, and the
+   remaining four as a dense roll that opens on demand. Nothing was cut -
+   it is all still here, just no longer all shouting at once.
    -------------------------------------------------------------------------- */
 
-.layers {
+.rec-group + .rec-group { margin-top: clamp(var(--sp-9), 7vw, var(--sp-11)); }
+
+.rec-sub {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  margin: 0 0 clamp(var(--sp-5), 3vw, var(--sp-7));
+  font-weight: 400;
+}
+
+.rec-sub__label { color: var(--ink-2); white-space: nowrap; }
+
+.rec-sub__rule {
+  flex: 1;
+  min-width: var(--sp-5);
+  height: 1px;
+  background: linear-gradient(90deg, var(--line-2), transparent);
+}
+
+.rec-sub__meta { color: var(--ink-4); white-space: nowrap; }
+
+@media (max-width: 560px) {
+  /* The meta is the first thing to go when the line gets tight - the label
+     is what carries the structure. */
+  .rec-sub__meta { display: none; }
+}
+
+/* Education plates -------------------------------------------------------- */
+
+.creds {
+  display: grid;
+  gap: var(--sp-4);
+}
+
+@media (min-width: 720px) {
+  .creds {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--sp-5);
+    row-gap: var(--sp-2);
+  }
+
+  /* Subgrid so both plates agree on where the rule, the name and the degree
+     sit, however differently their text wraps - "J. Clarke Richardson
+     Collegiate" takes two lines where "University of Waterloo" takes one,
+     and without this that shunts everything below it out of step. */
+  @supports (grid-template-rows: subgrid) {
+    .creds { grid-template-rows: auto auto auto auto; }
+    .cred { grid-row: span 4; grid-template-rows: subgrid; }
+  }
+}
+
+.cred {
+  --cred-accent: var(--line-2);
   position: relative;
-  margin: 0;
-  padding: clamp(var(--sp-5), 3vw, var(--sp-7));
+  display: grid;
+  gap: var(--sp-2);
+  padding: clamp(var(--sp-5), 3vw, var(--sp-6));
   border: 1px solid var(--line);
   border-radius: var(--radius-lg);
   background: var(--surface);
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas:
-    'cap  cap'
-    'axis list';
-  gap: var(--sp-5) var(--sp-4);
+  overflow: hidden;
 }
 
-@media (min-width: 1000px) {
-  .layers { position: sticky; top: clamp(3rem, 12vh, 7rem); }
+/* A hairline of accent along the top edge: enough to rank the two plates
+   against each other without a second border colour. */
+.cred::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, var(--cred-accent), transparent 78%);
 }
 
-.layers__cap {
-  grid-area: cap;
+.cred--next {
+  --cred-accent: var(--copper);
+  border-color: color-mix(in srgb, var(--copper) 22%, var(--line));
+  background:
+    linear-gradient(180deg, var(--copper-wash), transparent 42%),
+    var(--surface);
+}
+
+.cred__top {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+  margin-bottom: var(--sp-3);
   padding-bottom: var(--sp-4);
   border-bottom: 1px solid var(--line);
 }
 
-/* The vertical axis: high level at the top, hardware at the bottom. */
-.layers__axis {
-  grid-area: axis;
-  display: grid;
-  grid-template-rows: auto minmax(20px, 1fr) auto;
-  gap: var(--sp-3);
-  justify-items: center;
-  align-items: center;
+.cred__mark {
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 5px;
+  background: #fff;
+  padding: 2px;
+  object-fit: contain;
 }
 
-.layers__axis-top,
-.layers__axis-bot {
-  writing-mode: vertical-rl;
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  /* ink-4 lands at 4.44:1 against the card's raised surface - one step up
-     clears AA. */
-  color: var(--ink-3);
-  white-space: nowrap;
-}
+.cred__mark--pad { padding: 1px; }
 
-.layers__axis-line {
-  width: 1px;
-  height: 100%;
-  background: linear-gradient(180deg, var(--line-2), var(--copper));
-}
+/* Pushes the chip to the far edge and lets the dates sit next to the mark. */
+.cred__when { margin: 0; margin-right: auto; color: var(--ink-3); }
 
-.layers__list {
-  grid-area: list;
-  list-style: none;
+/* Sans, not Fraunces. A plate is a record, not prose - and at this size the
+   display face's SOFT and WONK axes turn a long institution name mushy,
+   which is exactly the case .h-sans exists for. */
+.cred__school {
   margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 4px;
-}
-
-.layer {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  grid-template-areas:
-    'no name'
-    'no eg';
-  gap: 1px var(--sp-4);
-  align-items: center;
-  padding: 0.62rem 0.85rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  /* Tints further toward copper the closer the layer is to hardware. */
-  background: color-mix(in srgb, var(--copper) calc(var(--d, 0) * 1.6%), var(--surface-2));
-  transition: border-color var(--dur-2) var(--ease-out),
-              transform var(--dur-2) var(--ease-out);
-}
-
-.layer:hover { border-color: color-mix(in srgb, var(--copper) 45%, transparent); transform: translateX(3px); }
-
-.layer__no {
-  grid-area: no;
-  align-self: center;
-  font-size: var(--step--2);
-  color: var(--copper);
-  opacity: .75;
-}
-
-.layer__name {
-  grid-area: name;
-  font-weight: 540;
-  font-size: var(--step--1);
+  font-family: var(--font-sans);
+  font-weight: 560;
+  font-size: var(--step-1);
+  line-height: var(--leading-snug);
+  letter-spacing: -0.022em;
   color: var(--ink);
-  line-height: 1.3;
+  text-wrap: balance;
 }
 
-.layer__eg {
-  grid-area: eg;
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.03em;
-  color: var(--ink-3);
-  line-height: 1.4;
-}
-
-@media (max-width: 460px) {
-  .layers { grid-template-columns: minmax(0, 1fr); grid-template-areas: 'cap' 'list'; }
-  .layers__axis { display: none; }
-}
-
-/* Text column ------------------------------------------------------------- */
-
-.identity__text { display: grid; gap: clamp(var(--sp-7), 4vw, var(--sp-9)); }
-.identity__text strong { color: var(--ink); font-weight: 560; }
-
-/* Spec table - dotted leaders. */
-.specs { margin: 0; display: grid; gap: 0; }
-
-.specs__row {
-  display: grid;
-  grid-template-columns: minmax(0, auto) 1fr minmax(0, auto);
-  align-items: baseline;
-  gap: var(--sp-3);
-  padding-block: 0.85rem;
-  border-bottom: 1px solid var(--line);
-}
-
-.specs__row:first-child { border-top: 1px solid var(--line); }
-
-.specs dt {
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: var(--track-caps);
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-
-.specs__row::after {
-  content: '';
-  grid-column: 2;
-  height: 1px;
-  align-self: center;
-  background-image: radial-gradient(circle, var(--ink-4) 0.5px, transparent 0.6px);
-  background-size: 5px 1px;
-  background-repeat: repeat-x;
-  opacity: .6;
-}
-
-.specs dd {
+.cred__degree {
   margin: 0;
-  grid-column: 3;
-  text-align: right;
   font-size: var(--step--1);
-  color: var(--ink);
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
-  justify-content: flex-end;
-}
-
-/* ==========================================================================
-   02 - EXPERIENCE
-   ========================================================================== */
-
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sp-2);
-  margin-bottom: clamp(var(--sp-7), 5vw, var(--sp-9));
-}
-
-.filters__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  padding: 0.55rem 1rem;
-  border: 1px solid var(--line-2);
-  border-radius: 99px;
-  background: transparent;
   color: var(--ink-2);
-  font-family: var(--font-mono);
-  font-size: var(--step--2);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: border-color var(--dur-2) var(--ease-out),
-              color var(--dur-2) var(--ease-out),
-              background-color var(--dur-2) var(--ease-out);
 }
 
-.filters__btn:hover { border-color: var(--copper-lo); color: var(--ink); }
-
-.filters__btn.is-active {
-  border-color: var(--copper);
-  color: var(--copper);
-  background: var(--copper-wash);
-}
-
-.filters__n { color: var(--ink-4); font-size: 0.9em; }
-.filters__btn.is-active .filters__n { color: var(--copper); }
+.cred__where { margin: var(--sp-2) 0 0; color: var(--ink-4); }
 
 /* Timeline ---------------------------------------------------------------- */
 
@@ -253,8 +179,10 @@
   background: var(--line-2);
 }
 
-.tl:last-child::before,
-.tl.is-tail::before { display: none; }
+/* No connector trailing off the bottom of the last entry. (There used to be
+   an .is-tail hook here too, for when filtering could hide the real last
+   entry; the filter is gone, so :last-child is now always right.) */
+.tl:last-child::before { display: none; }
 
 .tl__node {
   position: absolute;
@@ -384,13 +312,163 @@
   border: 1px solid color-mix(in srgb, var(--copper) 35%, transparent);
 }
 
-.tl.is-hidden { display: none; }
+/* The roll ---------------------------------------------------------------- */
+/* One line per role, in the same hover idiom as the skills index, so the two
+   dense lists on the page read as the same kind of object. */
 
-.timeline__empty {
-  padding: var(--sp-8) 0;
+.roll { list-style: none; margin: 0; padding: 0; }
+
+.roll__item { border-bottom: 1px solid var(--line); }
+.roll__item:first-child { border-top: 1px solid var(--line); }
+
+.roll__d {
+  --roll-inset: 0px;
+  position: relative;
+}
+
+/* A copper edge marks the row you opened, so an expanded row still reads as
+   one item once its detail pushes the next row down the page. */
+.roll__d::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 2px;
+  background: var(--copper);
+  transform: scaleY(0);
+  transform-origin: 50% 0;
+  transition: transform var(--dur-2) var(--ease-out);
+}
+
+.roll__d[open]::before { transform: scaleY(1); }
+
+.roll__sum {
+  display: grid;
+  grid-template-columns: 12px minmax(0, 1fr);
+  grid-template-areas:
+    'chev when'
+    '.    org'
+    '.    role';
+  align-items: center;
+  gap: 2px var(--sp-4);
+  padding: 0.9rem var(--sp-3) 0.9rem calc(var(--sp-3) + var(--roll-inset));
+  cursor: pointer;
+  list-style: none;
+  transition: background-color var(--dur-2) var(--ease-out),
+              padding-left var(--dur-2) var(--ease-out);
+}
+
+.roll__sum::-webkit-details-marker { display: none; }
+.roll__sum::marker { content: ''; }
+
+.roll__sum:hover { --roll-inset: var(--sp-3); background: color-mix(in srgb, var(--copper) 5%, transparent); }
+.roll__d[open] .roll__sum { --roll-inset: var(--sp-3); }
+
+.roll__sum:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: -2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Chevron: right when closed, down when open. */
+.roll__chev {
+  grid-area: chev;
+  width: 6px;
+  height: 6px;
+  align-self: center;
+  border-right: 1.5px solid var(--ink-4);
+  border-bottom: 1.5px solid var(--ink-4);
+  transform: rotate(-45deg);
+  transition: transform var(--dur-2) var(--ease-out),
+              border-color var(--dur-2) var(--ease-out);
+}
+
+.roll__sum:hover .roll__chev { border-color: var(--copper); }
+.roll__d[open] .roll__chev { transform: rotate(45deg); border-color: var(--copper); }
+
+.roll__when {
+  grid-area: when;
+  font-size: var(--step--2);
+  letter-spacing: 0.08em;
   color: var(--ink-3);
-  font-family: var(--font-mono);
+  white-space: nowrap;
+}
+
+.roll__org {
+  grid-area: org;
+  font-weight: 540;
   font-size: var(--step--1);
+  color: var(--ink);
+  line-height: 1.35;
+}
+
+.roll__role {
+  grid-area: role;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: var(--sp-2) var(--sp-3);
+  font-family: var(--font-mono);
+  font-size: var(--step--2);
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  line-height: 1.45;
+}
+
+/* Compressing a role must not hide the one fact that made it worth keeping,
+   so anything that won something says so on the closed row. */
+.roll__badge {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 5px;
+  padding: 2px 8px;
+  border: 1px solid color-mix(in srgb, var(--copper) 30%, transparent);
+  border-radius: 99px;
+  background: var(--copper-wash);
+  color: var(--copper);
+  font-size: 0.94em;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+.roll__body {
+  display: grid;
+  gap: var(--sp-4);
+  padding: 0 var(--sp-3) var(--sp-6) calc(var(--sp-6) + var(--sp-3));
+}
+
+/* Once there is room the row becomes a single scannable line: dates, then
+   organisation, then role, in three fixed columns. */
+@media (min-width: 780px) {
+  .roll__sum {
+    grid-template-columns: 12px minmax(0, 8.5rem) minmax(0, 1.15fr) minmax(0, 1fr);
+    grid-template-areas: 'chev when org role';
+    gap: var(--sp-5);
+    padding-block: 0.85rem;
+  }
+  .roll__org { font-size: var(--step-0); letter-spacing: -0.005em; }
+  .roll__body {
+    padding-left: calc(12px + 8.5rem + var(--sp-5) * 2 + var(--sp-3));
+    padding-bottom: var(--sp-7);
+  }
+}
+
+/* Animate the open where the browser can interpolate to auto. Everywhere
+   else it just snaps, which is the pre-2024 <details> behaviour and fine. */
+@supports (interpolate-size: allow-keywords) {
+  .roll { interpolate-size: allow-keywords; }
+
+  .roll__d::details-content {
+    block-size: 0;
+    overflow: clip;
+    transition: block-size var(--dur-3) var(--ease-out),
+                content-visibility var(--dur-3) allow-discrete;
+  }
+
+  .roll__d[open]::details-content { block-size: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll__d::details-content { transition: none; }
 }
 
 /* ==========================================================================

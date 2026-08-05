@@ -62,42 +62,71 @@ body { overflow: visible; }
 .cmdk,
 .cmdk-trigger,
 .toast,
-.hero__field,
-.hero__veil,
+.webring,
+.intro__field,
+.intro__veil,
 .plate,
 .contact__bg,
 .build__scan,
-.filters,
+.roll__chev,
 .scroll-progress,
 .skip-link             { display: none !important; }
 
 .main, .foot { padding-left: 0 !important; }
 
-/* Filtered-out timeline entries must come back for print: the reader gets
-   the whole record, not whatever was on screen when they hit Ctrl+P. */
-.tl.is-hidden { display: grid !important; }
+/* The roll is expandable on screen; on paper every row is already open
+   (enhance.js), so it just needs to read as a flat list of short entries. */
+.roll__sum {
+  display: block !important;
+  padding: 2mm 0 1mm !important;
+  background: none !important;
+}
+
+.roll__when { display: block; color: #3d3d3d; }
+.roll__org  { font-weight: 600; }
+.roll__role { color: #1a1a1a; }
+.roll__org::after { content: ' — '; }
+
+.roll__body { padding: 0 0 2mm !important; }
+.roll__d::before { display: none !important; }
+.roll__item { break-inside: avoid; page-break-inside: avoid; }
+
+/* Education plates print as two stacked blocks, not cards. */
+.creds { display: block !important; }
+
+.cred {
+  border: none !important;
+  border-top: 1pt solid #999 !important;
+  border-radius: 0 !important;
+  padding: 2mm 0 3mm !important;
+  background: none !important;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+.cred::before { display: none !important; }
+.cred__mark { width: 9mm; height: 9mm; }
+.cred__school { font-size: 12pt !important; }
+
+.rec-sub { margin-bottom: 3mm !important; }
+.rec-sub__rule { background: #999 !important; }
+.rec-group + .rec-group { margin-top: 7mm !important; }
 
 /* ---- layout ------------------------------------------------------------- */
 
 .shell { max-width: none; padding-inline: 0; }
 
-.hero {
+.intro {
   min-height: 0 !important;
   padding: 0 0 8mm !important;
   border-bottom: 1.5pt solid #000;
 }
 
-.hero__inner { padding-left: 0 !important; }
+.intro__inner { padding-left: 0 !important; }
 
-.hero__name { font-size: 32pt !important; }
+.intro__name { font-size: 32pt !important; }
 
-/* The outlined second line disappears on white; make it solid ink. */
-.hero__line + .hero__line .hero__word {
-  -webkit-text-stroke: 0 !important;
-  color: #000 !important;
-}
-
-.hero__lede, .lede { font-size: 11pt !important; color: #1a1a1a !important; max-width: none; }
+.intro__list li, .lede { font-size: 11pt !important; color: #1a1a1a !important; max-width: none; }
 
 .section { padding-block: 8mm !important; }
 .section + .section::before { display: none; }
@@ -107,7 +136,6 @@ body { overflow: visible; }
 .h3 { font-size: 12pt !important; }
 
 .section-title-row,
-.identity__grid,
 .contact__grid,
 .board { display: block !important; }
 
@@ -118,8 +146,6 @@ body { overflow: visible; }
 .tl,
 .build,
 .bus,
-.layers,
-.specs__row,
 .pin            { break-inside: avoid; page-break-inside: avoid; }
 
 .section-head   { break-after: avoid; page-break-after: avoid; }
@@ -171,7 +197,7 @@ a { color: #000 !important; text-decoration: none !important; box-shadow: none !
 .pin { border-color: #ccc !important; }
 
 /* The CTA buttons are dead controls on paper. */
-.hero__cta, .btn { display: none !important; }
+.intro__links, .btn { display: none !important; }
 
 /* ---- footer ------------------------------------------------------------- */
 
@@ -185,7 +211,7 @@ a { color: #000 !important; text-decoration: none !important; box-shadow: none !
 
 /* A printed page loses the URL bar, so state where this came from. */
 .foot::after {
-  content: 'sulaimanqazi.com  ·  s6qazi@uwaterloo.ca  ·  github.com/sulaimwn';
+  content: 'sulaimanq.com  ·  s6qazi@uwaterloo.ca  ·  github.com/sulaimwn';
   display: block;
   margin-top: 3mm;
   font-family: var(--font-mono);
@@ -208,3 +234,14 @@ a { color: #000 !important; text-decoration: none !important; box-shadow: none !
   transform: none !important;
   clip-path: none !important;
 }
+
+/* Chips are a screen affordance; on paper they are just words. */
+.chip-link {
+  background: none !important;
+  border: 0 !important;
+  padding: 0 !important;
+  font-weight: 600;
+}
+.chip-link img { display: none !important; }
+.intro { min-height: 0 !important; padding-block: 0 0 8mm !important; }
+.intro__top { border-bottom: 1pt solid #000; }

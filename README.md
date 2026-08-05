@@ -2,7 +2,7 @@
 
 Personal portfolio for Sulaiman Qazi, a Computer Science student at the University of Waterloo.
 
-**Live site:** [sulaimanqazi.vercel.app](https://sulaimanqazi.vercel.app/)
+**Live site:** [sulaimanq.com](https://sulaimanq.com/)
 
 ## Built with
 
@@ -35,4 +35,4 @@ assets/
 serve.ps1
 ```
 
-The site is deployed on Vercel.
+The site is deployed on Cloudflare Pages.
