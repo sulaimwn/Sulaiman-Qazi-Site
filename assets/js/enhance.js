@@ -16,7 +16,13 @@
   /* DEEP LINKING - the URL should describe what you are looking at          */
   /* ====================================================================== */
 
+  /* Both of the blocks below assume a single long scrolling page. When the
+     router is driving views, the hash already names the view and rewriting
+     it on scroll would fight it. */
+  var ROUTED = !!document.querySelector('[data-view]');
+
   (function hashSync() {
+    if (ROUTED) return;
     var ids = ['home', 'about', 'experience', 'projects', 'skills', 'contact'];
     var sections = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
     if (!sections.length || !('IntersectionObserver' in window)) return;
@@ -170,8 +176,21 @@
       if (!dir) return;
       e.preventDefault();
 
-      var vh = window.innerHeight;
       var els = ids.map(function (id) { return document.getElementById(id); }).filter(Boolean);
+
+      // With views, j/k page between them rather than scrolling.
+      if (ROUTED && window.sqGoToView) {
+        var order = els.filter(function (el) { return el.hasAttribute('data-view'); });
+        var here = 0;
+        for (var n = 0; n < order.length; n++) {
+          if (order[n].classList.contains('is-view-active')) here = n;
+        }
+        var next = order[Math.min(order.length - 1, Math.max(0, here + dir))];
+        if (next) window.sqGoToView(next.id);
+        return;
+      }
+
+      var vh = window.innerHeight;
       var idx = 0;
       for (var i = 0; i < els.length; i++) {
         if (els[i].getBoundingClientRect().top <= vh * 0.42) idx = i;

@@ -191,8 +191,18 @@
 
 .js .intro [data-reveal] { transition-delay: calc(var(--i, 0) * 60ms); }
 
+/* On a phone the same content has to survive a third of the width, so most
+   bullets wrap to two lines. The vertical rhythm tightens to claw that back;
+   the type size does not, because shrinking it is what makes a page like
+   this unreadable. */
 @media (max-width: 640px) {
   .intro { min-height: 0; padding-block: clamp(5.5rem, 12vh, 7rem) var(--sp-9); }
   .intro__top { border-bottom: 0; padding-bottom: 0; }
   .intro__name { font-size: var(--step-5); }
+
+  .intro__wrap { gap: var(--sp-4); }
+  .intro__list { gap: 6px; }
+  .intro__list li { line-height: 1.45; padding-left: var(--sp-4); }
+  .intro__block { gap: 6px; }
+  .intro__outside { margin-top: 0; }
 }

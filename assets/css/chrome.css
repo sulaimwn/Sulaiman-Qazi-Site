@@ -565,17 +565,17 @@
   gap: var(--sp-2);
 }
 
-.webring--top {
-  position: absolute;
-  top: var(--sp-4);
-  right: var(--gutter);
-  z-index: 65;
+.webring--footer {
+  margin-left: auto;
   padding: 2px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-sm);
-  background: var(--surface-glass);
-  backdrop-filter: blur(14px) saturate(1.3);
+  border: 0;
+  background: transparent;
+  opacity: .58;
+  transition: opacity 120ms var(--ease-out);
 }
+
+.webring--footer:hover,
+.webring--footer:focus-within { opacity: .9; }
 
 .webring__nav,
 .webring__home {
@@ -599,39 +599,43 @@
   height: 24px;
   object-fit: contain;
   opacity: .88;
-  transition: opacity 120ms var(--ease-out), transform 120ms var(--ease-out);
+  filter: grayscale(1) saturate(0);
+  transition: opacity 120ms var(--ease-out), transform 120ms var(--ease-out), filter 120ms var(--ease-out);
+}
+
+[data-theme='dark'] .webring__home img {
+  opacity: 1;
+  filter: grayscale(1) saturate(0) brightness(3);
 }
 
 .webring__nav:hover,
-.webring__home:hover { color: var(--copper); background: var(--copper-wash); }
+.webring__home:hover { color: var(--ink-2); background: transparent; }
 .webring__home:hover img { opacity: 1; transform: scale(1.08); }
 
 .webring__nav:focus-visible,
 .webring__home:focus-visible {
-  outline: 2px solid var(--copper);
+  outline: 2px solid var(--ink-3);
   outline-offset: 2px;
 }
 
-@media (max-width: 899px) {
-  .webring--top {
-    top: var(--sp-3);
-    right: auto;
-    left: 50%;
-    z-index: 72;
-    gap: 2px;
-    padding: 0;
-    transform: translateX(-50%);
+@media (max-width: 720px) {
+  .foot__inner {
+    flex-direction: row;
+    flex-wrap: nowrap;
+    text-align: left;
+    gap: var(--sp-2);
   }
 
-  .webring--top .webring__nav,
-  .webring--top .webring__home { width: 28px; height: 34px; }
-}
+  .foot__inner .label { white-space: nowrap; }
 
-@media (max-width: 560px) {
-  .topbar__status { display: none; }
-}
+  .webring--footer {
+    flex: 0 0 auto;
+    gap: 0;
+    padding: 0;
+  }
 
-@media (max-width: 720px) {
-  .foot__inner { flex-direction: column; text-align: center; gap: var(--sp-3); }
-  .foot__mid { text-align: center; }
+  .webring--footer .webring__nav,
+  .webring--footer .webring__home { width: 32px; height: 34px; }
+
+  .webring--footer .webring__home img { width: 20px; height: 20px; }
 }

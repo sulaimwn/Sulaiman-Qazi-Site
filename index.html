@@ -23,12 +23,13 @@
 <link rel="stylesheet" href="assets/css/fonts.css">
 <link rel="stylesheet" href="assets/css/tokens.css">
 <link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/chrome.css?v=20260805-5">
+<link rel="stylesheet" href="assets/css/chrome.css?v=20260806-5">
 <link rel="stylesheet" href="assets/css/hero.css">
 <link rel="stylesheet" href="assets/css/intro.css">
 <link rel="stylesheet" href="assets/css/sections.css">
 <link rel="stylesheet" href="assets/css/projects.css">
 <link rel="stylesheet" href="assets/css/cmdk.css">
+<link rel="stylesheet" href="assets/css/views.css">
 <link rel="stylesheet" href="assets/css/print.css" media="print">
 
 <script>
@@ -102,18 +103,6 @@
   </div>
 </header>
 
-<nav class="webring webring--top" aria-label="UWaterloo CS Webring">
-  <a class="webring__nav" href="https://cs.uwatering.com/#sulaimanq.com?nav=prev"
-     aria-label="Previous site in the UWaterloo CS Webring" title="Previous site">&larr;</a>
-  <a class="webring__home" href="https://cs.uwatering.com/#sulaimanq.com"
-     target="_blank" rel="noopener noreferrer"
-     aria-label="View Sulaiman Qazi in the UWaterloo CS Webring" title="UWaterloo CS Webring">
-    <img src="https://cs.uwatering.com/icon.red.svg" alt="" width="24" height="24">
-  </a>
-  <a class="webring__nav" href="https://cs.uwatering.com/#sulaimanq.com?nav=next"
-     aria-label="Next site in the UWaterloo CS Webring" title="Next site">&rarr;</a>
-</nav>
-
 <!-- Read position for small screens, where the rail (and its progress
      trace) is hidden. -->
 <div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__fill"></span></div>
@@ -132,12 +121,13 @@
 </div>
 
 <main id="main" class="main" tabindex="-1">
+<p class="vh" id="view-status" aria-live="polite"></p>
 <span id="top"></span>
 
 <!-- ======================================================================
      00 - HOME
      ====================================================================== -->
-<section class="intro" id="home" aria-labelledby="intro-name">
+<section class="intro" id="home" data-view aria-labelledby="intro-name">
   <canvas class="intro__field" id="wavefield" aria-hidden="true"></canvas>
   <div class="intro__veil" aria-hidden="true"></div>
 
@@ -229,7 +219,7 @@
 <!-- ======================================================================
      01 - EXPERIENCE
      ====================================================================== -->
-<section class="section record" id="experience" aria-labelledby="experience-title">
+<section class="section record" id="experience" data-view aria-labelledby="experience-title">
   <div class="shell">
     <header class="section-head">
       <p class="section-slug mono" data-reveal>
@@ -447,7 +437,7 @@
 <!-- ======================================================================
      02 - PROJECTS
      ====================================================================== -->
-<section class="section builds" id="projects" aria-labelledby="projects-title">
+<section class="section builds" id="projects" data-view aria-labelledby="projects-title">
   <div class="shell">
     <header class="section-head">
       <p class="section-slug mono" data-reveal>
@@ -596,7 +586,7 @@
 <!-- ======================================================================
      03 - SKILLS
      ====================================================================== -->
-<section class="section stack-sec" id="skills" aria-labelledby="skills-title">
+<section class="section stack-sec" id="skills" data-view aria-labelledby="skills-title">
   <div class="shell">
     <header class="section-head">
       <p class="section-slug mono" data-reveal>
@@ -745,7 +735,7 @@
 <!-- ======================================================================
      04 - CONTACT
      ====================================================================== -->
-<section class="section contact" id="contact" aria-labelledby="contact-title">
+<section class="section contact" id="contact" data-view aria-labelledby="contact-title">
   <div class="contact__bg" aria-hidden="true">
     <img src="assets/img/contact-bg.jpg" alt="" role="presentation" loading="lazy" decoding="async">
   </div>
@@ -811,9 +801,17 @@
 <footer class="foot">
   <div class="shell foot__inner">
     <p class="label">Sulaiman Qazi - <span class="num">2026</span></p>
-    <p class="label">
-      <a class="link" href="#top">Back to top ↑</a>
-    </p>
+    <nav class="webring webring--footer" aria-label="UWaterloo CS Webring">
+      <a class="webring__nav" href="https://cs.uwatering.com/#sulaimanq.com?nav=prev"
+         aria-label="Previous site in the UWaterloo CS Webring" title="Previous site">&larr;</a>
+      <a class="webring__home" href="https://cs.uwatering.com/#sulaimanq.com"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="View Sulaiman Qazi in the UWaterloo CS Webring" title="UWaterloo CS Webring">
+        <img src="https://cs.uwatering.com/icon.red.svg" alt="" width="24" height="24">
+      </a>
+      <a class="webring__nav" href="https://cs.uwatering.com/#sulaimanq.com?nav=next"
+         aria-label="Next site in the UWaterloo CS Webring" title="Next site">&rarr;</a>
+    </nav>
   </div>
 </footer>
 
@@ -843,6 +841,7 @@
   <p class="vh" id="cmdk-status" aria-live="polite"></p>
 </dialog>
 
+<script src="assets/js/router.js"></script>
 <script src="assets/js/wavefield.js"></script>
 <script src="assets/js/art.js"></script>
 <script src="assets/js/site.js"></script>

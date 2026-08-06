@@ -94,6 +94,7 @@
   var plateEl  = $('.plate');
 
   var ticking = false;
+  var routed = !!document.querySelector('[data-view]');
 
   function onScroll() {
     if (ticking) return;
@@ -111,12 +112,16 @@
 
       if (topbar) topbar.classList.toggle('is-stuck', y > 8);
 
-      // Current section = the last one whose top has passed 42% of the viewport.
-      var current = 0;
-      for (var i = 0; i < sections.length; i++) {
-        if (sections[i].getBoundingClientRect().top <= vh * 0.42) current = i;
+      /* Scroll position only tells you which section you are in on a single
+         long page. With views, the router owns that state and marks the rail
+         with aria-current instead. */
+      if (!routed) {
+        var current = 0;
+        for (var i = 0; i < sections.length; i++) {
+          if (sections[i].getBoundingClientRect().top <= vh * 0.42) current = i;
+        }
+        railItems.forEach(function (a, i) { a.classList.toggle('is-current', i === current); });
       }
-      railItems.forEach(function (a, i) { a.classList.toggle('is-current', i === current); });
 
       // Interlude parallax - subtle, and off entirely for reduced motion.
       if (plateImg && plateEl && !reduced.matches) {

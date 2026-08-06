@@ -30,9 +30,15 @@
       var el = document.getElementById(id);
       if (!el) return;
       close();
-      // Let the dialog finish closing before scrolling, or the scroll is
-      // swallowed by the modal teardown.
+      // Let the dialog finish closing first, or the modal teardown swallows
+      // the navigation.
       requestAnimationFrame(function () {
+        // Hand off to the router when the page is showing one view at a
+        // time; scrolling to a hidden section would go nowhere.
+        if (window.sqGoToView && el.hasAttribute('data-view')) {
+          window.sqGoToView(id);
+          return;
+        }
         el.scrollIntoView({ behavior: prefersReduced() ? 'auto' : 'smooth', block: 'start' });
         history.replaceState(null, '', '#' + id);
         // Move real focus so keyboard users land where they navigated.

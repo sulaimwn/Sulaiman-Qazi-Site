@@ -34,13 +34,6 @@
     dotSize: 2.0      // dot edge length, CSS px
   };
 
-  /* Wavelength ≈ 2π·√c2 / f cells - about 10 cells here, which puts roughly
-     twenty wavelengths across a laptop screen. That density is what makes
-     the fringes read as interference rather than as gradient blobs. Both
-     emitters run at the SAME frequency; two detuned sources just beat into
-     mush. Ten cells per wavelength also keeps numerical dispersion low. */
-  var FREQ = [0.320, 0.320];
-
   var PALETTE = {
     dark:  {
       pos: [236, 154, 66], neg: [87, 207, 230],
@@ -59,6 +52,8 @@
   var dpr = 1, cssW = 0, cssH = 0;
   var buf, bufCtx, imgData, pix;
   var sources = [];
+  var greeted = false;
+  var GREET_AT = 26;        // solver steps before the arrival ripple fires
   var running = false, visible = true, raf = 0;
   var t = 0;
 
@@ -114,14 +109,19 @@
     imgData = bufCtx.createImageData(W, H);
     pix = imgData.data;
 
-    // Two emitters, placed off-centre so the interference never looks symmetric.
-    /* Both emitters sit right of centre. The headline lives in the lower
-       left, and the veil is strongest there, so the busiest fringes stay
-       off the type. */
-    sources = [
-      { x: Math.round(W * 0.77), y: Math.round(H * 0.23), f: FREQ[0], a: 0.34, p: 0 },
-      { x: Math.round(W * 0.57), y: Math.round(H * 0.73), f: FREQ[1], a: 0.28, p: 2.1 }
-    ];
+    /* No standing emitters.
+
+       There used to be two, pulsing forever so the field always had
+       something moving in it. That reads as motion the visitor never asked
+       for, and it pulls the eye off the type it sits behind.
+
+       Instead the field gets one impulse on arrival and then goes quiet. It
+       shows what the surface does once, then waits to be touched. Dropping
+       the emitters entirely (pointer-only) was the other option, but there
+       is no hover on a phone, so most mobile visitors would meet a dead
+       rectangle and never find the effect at all. */
+    sources = [];
+    greeted = false;
   }
 
   /* ------------------------------------------------------------------ sim */
@@ -150,15 +150,13 @@
       }
     }
 
-    // Soft sources: added into the field rather than clamped onto it.
     t += 1;
-    for (var s = 0; s < sources.length; s++) {
-      var src = sources[s];
-      var v = Math.sin(t * src.f + src.p) * src.a;
-      // A gentle breath keeps the field from settling into a perfect loop
-      // without smearing the fringes the way deep modulation does.
-      v *= 0.82 + 0.18 * Math.sin(t * 0.0031 + s * 1.7);
-      next[src.y * W + src.x] += v;
+
+    /* One arrival ripple, a beat after the field is up so it is not lost
+       under the page's own entrance animation. Fires once per load. */
+    if (!greeted && t > GREET_AT) {
+      greeted = true;
+      impulse(Math.round(W * 0.68), Math.round(H * 0.38), 2.4, 5);
     }
 
     var tmp = prev; prev = cur; cur = next; next = tmp;
