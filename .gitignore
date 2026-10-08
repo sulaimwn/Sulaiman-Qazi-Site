@@ -3,3 +3,31 @@
 _source-media/
 .cloudflare-dist/
 .wrangler/
+
+# assets/img also catches browser downloads, so it is a whitelist:
+# everything in it is ignored except the files the site uses.
+# Adding a new image to the site? Add a matching ! line below,
+# or git will silently skip it.
+assets/img/*
+!assets/img/bojon.png
+!assets/img/branchforge.webp
+!assets/img/chaos-roll.png
+!assets/img/chip8-emulator.gif
+!assets/img/contact-bg.jpg
+!assets/img/favicon.svg
+!assets/img/gameboy-sprite.jpg
+!assets/img/github.png
+!assets/img/hack-the-6ix.png
+!assets/img/hack-the-valley.png
+!assets/img/jcr-crest.png
+!assets/img/librepcb-mcp.png
+!assets/img/og.jpg
+!assets/img/polls-vs-odds.png
+!assets/img/smartwatch-schematic.png
+!assets/img/stormbots.png
+!assets/img/sulaiman-qazi-resume.pdf
+!assets/img/sunnybrook.png
+!assets/img/uwaterloo-seal.png
+!assets/img/watonomous.jpg
+!assets/img/ydc.png
+_previous-site/

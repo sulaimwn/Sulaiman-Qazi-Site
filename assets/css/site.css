@@ -1,0 +1,399 @@
+/* ==========================================================================
+   Sulaiman Qazi - one stylesheet for the whole site.
+   One narrow column of text, logo chips for places, and nothing else.
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(../fonts/inter-latin-ext.woff2) format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url(../fonts/inter-latin.woff2) format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* --------------------------------------------------------------------------
+   Tokens
+   -------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light;
+  --bg:      #fbfaf8;
+  --ink:     #17171a;
+  --muted:   #6b6b70;
+  --faint:   #9a9a9f;
+  --rule:    #e7e5e1;
+  --chip:    #f0eee9;
+  --chip-hi: #e6e3dc;
+  --link:    #c9c5bd;
+  --focus:   #2f6fd6;
+
+  --font: 'Inter', system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+  --col: 40rem;
+  --radius: 6px;
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg:      #111113;
+  --ink:     #ececee;
+  --muted:   #9c9ca3;
+  --faint:   #6e6e75;
+  --rule:    #26262a;
+  --chip:    #1d1d21;
+  --chip-hi: #2a2a2f;
+  --link:    #4a4a52;
+  --focus:   #7aa7f0;
+}
+
+/* --------------------------------------------------------------------------
+   Base
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, p, ul { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--link);
+  transition: text-decoration-color 120ms;
+}
+a:hover { text-decoration-color: currentColor; }
+
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 4px; }
+
+img { max-width: 100%; }
+
+.vh {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: 12px; top: -80px;
+  z-index: 50;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--bg);
+  text-decoration: none;
+}
+.skip:focus { top: 12px; }
+
+/* --------------------------------------------------------------------------
+   Page frame
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  max-width: calc(var(--col) + 48px);
+  margin: 0 auto;
+  padding: clamp(40px, 11vh, 110px) 24px 40px;
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 6px 20px;
+}
+
+.name {
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+.name a { text-decoration: none; }
+
+.nav { display: flex; gap: 16px; color: var(--muted); }
+.nav a { text-decoration: none; }
+.nav a:hover, .nav a[aria-current='page'] { color: var(--ink); }
+.nav a[aria-current='page'] { text-decoration: underline; text-decoration-color: var(--link); }
+
+.tagline { margin-top: 6px; }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 10px;
+  color: var(--muted);
+}
+.links a, .links button { color: var(--muted); }
+.links a:hover, .links button:hover { color: var(--ink); }
+
+.linkbtn {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--link);
+}
+.linkbtn:hover { text-decoration-color: currentColor; }
+
+/* --------------------------------------------------------------------------
+   Sections and bullets
+   -------------------------------------------------------------------------- */
+
+.block { margin-top: 32px; }
+
+.block__h {
+  margin-bottom: 6px;
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.bullets { list-style: none; padding: 0; display: grid; gap: 6px; }
+.bullets li { position: relative; padding-left: 18px; }
+.bullets li::before {
+  content: '';
+  position: absolute;
+  left: 2px;
+  top: 0.78em;
+  width: 6px;
+  height: 1px;
+  background: var(--faint);
+}
+
+.num { font-variant-numeric: tabular-nums; }
+.dim { color: var(--muted); }
+
+/* A chip and whatever punctuation follows it never split across lines. */
+.nb { white-space: nowrap; }
+
+/* Logo chips: the place, with its mark, as a link. */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 7px 0 4px;
+  border-radius: 5px;
+  background: var(--chip);
+  line-height: 1.6;
+  text-decoration: none;
+  white-space: nowrap;
+  vertical-align: baseline;
+  transition: background-color 120ms;
+}
+.chip:hover { background: var(--chip-hi); }
+.chip img {
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  object-fit: contain;
+  background: #fff;
+  flex: none;
+}
+
+.more {
+  display: inline-block;
+  margin-top: 10px;
+  color: var(--muted);
+}
+.more:hover { color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   Hover previews for project links (mouse only)
+   -------------------------------------------------------------------------- */
+
+.peek {
+  position: fixed;
+  z-index: 40;
+  left: 0; top: 0;
+  width: 280px;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--chip);
+  box-shadow: 0 0 0 1px var(--rule), 0 16px 40px -12px rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity 120ms, transform 120ms;
+}
+.peek.is-on { opacity: 1; transform: none; }
+.peek img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.peek .sprite { position: absolute; inset: 0; }
+
+/* The Game Boy recording is a strip of 36 frames. */
+.sprite {
+  background-image: url('../img/gameboy-sprite.jpg');
+  background-repeat: no-repeat;
+  background-size: 3600% 100%;
+  image-rendering: pixelated;
+  animation: sprite-36 1.75s steps(35) infinite;
+}
+@keyframes sprite-36 {
+  from { background-position-x: 0%; }
+  to   { background-position-x: 100%; }
+}
+
+/* --------------------------------------------------------------------------
+   Projects page
+   -------------------------------------------------------------------------- */
+
+.page-h { margin-top: 36px; font-size: 1.25rem; font-weight: 700; }
+.page-intro { margin-top: 4px; color: var(--muted); }
+
+.projects { list-style: none; padding: 0; margin-top: 20px; }
+
+.project {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  gap: 20px;
+  padding: 22px 0;
+  border-top: 1px solid var(--rule);
+}
+.project:last-child { border-bottom: 1px solid var(--rule); }
+
+.project__shot {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--chip);
+  box-shadow: 0 0 0 1px var(--rule);
+}
+.project__shot img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.project__shot--fit img { object-fit: contain; background: #f4f5f7; }
+.project__shot--white img { object-fit: contain; background: #fff; }
+.project__shot .sprite { position: absolute; inset: 0; }
+
+.project__title { font-size: 1.0625rem; font-weight: 700; line-height: 1.35; }
+.project__badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border-radius: 4px;
+  background: var(--chip);
+  color: var(--muted);
+  font-size: 0.8125rem;
+  font-weight: 400;
+  vertical-align: 2px;
+}
+.project__text { margin-top: 4px; }
+.project__stack { margin-top: 6px; color: var(--muted); font-size: 0.9375rem; }
+.project__links { display: flex; flex-wrap: wrap; gap: 4px 16px; margin-top: 6px; font-size: 0.9375rem; }
+
+@media (max-width: 560px) {
+  .project { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 20px;
+  margin-top: 48px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  color: var(--faint);
+  font-size: 0.875rem;
+}
+.foot__end { display: flex; align-items: center; gap: 16px; }
+.foot .linkbtn { color: var(--faint); }
+.foot .linkbtn:hover { color: var(--ink); }
+
+.webring { display: flex; align-items: center; gap: 2px; }
+.webring a {
+  display: grid;
+  place-items: center;
+  min-width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  color: var(--faint);
+  text-decoration: none;
+}
+.webring a:hover { color: var(--ink); background: var(--chip); }
+.webring img { width: 20px; height: 20px; display: block; }
+[data-theme='dark'] .webring img { filter: grayscale(1) brightness(1.7); }
+
+/* --------------------------------------------------------------------------
+   Command menu (Ctrl K or /) and toast
+   -------------------------------------------------------------------------- */
+
+.cmdk {
+  width: min(520px, calc(100vw - 32px));
+  max-height: min(460px, 70vh);
+  margin: 12vh auto auto;
+  padding: 0;
+  border: 1px solid var(--rule);
+  border-radius: 10px;
+  background: var(--bg);
+  color: var(--ink);
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+.cmdk[open] { display: flex; flex-direction: column; }
+.cmdk::backdrop { background: rgba(10, 10, 12, 0.35); }
+.cmdk__bar { display: flex; align-items: center; gap: 10px; padding: 12px 14px; border-bottom: 1px solid var(--rule); }
+.cmdk__input { flex: 1; min-width: 0; border: 0; outline: 0; background: none; color: inherit; font: inherit; }
+.cmdk__input::placeholder { color: var(--faint); }
+.cmdk kbd { font-family: var(--font); font-size: 0.75rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 4px; padding: 0 5px; }
+.cmdk__list { list-style: none; margin: 0; padding: 6px; overflow-y: auto; }
+.cmdk__group { padding: 8px 8px 2px; font-size: 0.8125rem; color: var(--faint); }
+.cmdk__opt { display: flex; align-items: center; gap: 12px; padding: 7px 8px; border-radius: 5px; cursor: pointer; }
+.cmdk__opt[aria-selected='true'] { background: var(--chip); }
+.cmdk__label b { font-weight: 700; }
+.cmdk__meta { margin-left: auto; color: var(--faint); font-size: 0.875rem; }
+.cmdk__empty { padding: 16px 14px; color: var(--muted); }
+
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  z-index: 60;
+  translate: -50% 10px;
+  padding: 8px 14px;
+  border-radius: var(--radius);
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 0.9375rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms, translate 150ms;
+}
+.toast.is-on { opacity: 1; translate: -50% 0; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

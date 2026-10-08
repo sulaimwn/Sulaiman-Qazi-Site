@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en" data-root="../">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Projects - Sulaiman Qazi</title>
+<meta name="description" content="Projects by Sulaiman Qazi: a live election forecast, an MCP server for LibrePCB, a Game Boy emulator in C, a CHIP-8 interpreter, an ESP32 smartwatch and two hackathon winners.">
+<meta name="author" content="Sulaiman Qazi">
+<meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111113" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://sulaimanq.com/projects/">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sulaimanq.com/projects/">
+<meta property="og:title" content="Projects - Sulaiman Qazi">
+<meta property="og:description" content="A live election forecast, an MCP server for LibrePCB, emulators in C and C++, and more.">
+<meta property="og:image" content="https://sulaimanq.com/assets/img/og.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preload" href="../assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../assets/css/site.css">
+
+<script>
+  (function () {
+    var d = document.documentElement;
+    try {
+      var saved = localStorage.getItem('sq-theme');
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      d.setAttribute('data-theme', saved || sys);
+    } catch (e) { d.setAttribute('data-theme', 'light'); }
+  })();
+</script>
+</head>
+
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="wrap">
+
+  <header class="top">
+    <p class="name"><a href="../">Sulaiman Qazi</a></p>
+    <nav class="nav" aria-label="Pages">
+      <a href="../">home</a>
+      <a href="./" aria-current="page">projects</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <h1 class="page-h">projects</h1>
+
+    <ul class="projects">
+
+      <li class="project">
+        <a class="project__shot project__shot--fit" href="https://pollsvsodds.com/" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/polls-vs-odds.png" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">Polls vs. Odds <span class="project__badge">live</span></h2>
+          <p class="project__text">A live forecast for every 2026 House and Senate race. It puts public polls next to Polymarket and Kalshi odds and shows where voters and bettors disagree, across all 435 districts and 35 Senate races.</p>
+          <p class="project__stack">JavaScript, Node.js, Cloudflare Workers, Polymarket, Kalshi</p>
+          <p class="project__links">
+            <a href="https://pollsvsodds.com/" target="_blank" rel="noopener noreferrer">live site</a>
+            <a href="https://github.com/sulaimwn/polls-vs-odds" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot project__shot--white" href="https://github.com/sulaimwn/LibrePCB-MCP-Server" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/librepcb-mcp.png" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">LibrePCB MCP Server</h2>
+          <p class="project__text">An MCP server that lets AI clients work with saved LibrePCB projects: list components and nets, run electrical and board-rule checks, and export schematics and manufacturing files. It always works on a copy, so the original design is never touched.</p>
+          <p class="project__stack">Python, MCP, LibrePCB</p>
+          <p class="project__links">
+            <a href="https://github.com/sulaimwn/LibrePCB-MCP-Server" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot" href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <span class="sprite"></span>
+        </a>
+        <div>
+          <h2 class="project__title">Game Boy Emulator</h2>
+          <p class="project__text">A Game Boy emulator in C with a working Sharp LR35902 CPU, memory map, I/O, PPU, input and SDL2 rendering. It runs commercial games like Mortal Kombat 3.</p>
+          <p class="project__stack">C, SDL2, CMake</p>
+          <p class="project__links">
+            <a href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot" href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/chip8-emulator.gif" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">CHIP-8 Interpreter</h2>
+          <p class="project__text">My first emulator: 35 opcodes, a 64×32 display, timers and a hex keypad. It runs real CHIP-8 ROMs.</p>
+          <p class="project__stack">C++, SDL2</p>
+          <p class="project__links">
+            <a href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot project__shot--white" href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/smartwatch-schematic.png" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">Health Tracking Smartwatch</h2>
+          <p class="project__text">An ESP32 smartwatch with a custom PCB, TFT display, heart-rate sensor and step tracking. I designed the board, reflowed it and wrote the firmware.</p>
+          <p class="project__stack">ESP32, Arduino, PCB design</p>
+          <p class="project__links">
+            <a href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot" href="https://github.com/Toastyybread1/toralis-challenge" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/branchforge.webp" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">BranchForge</h2>
+          <p class="project__text">Finds where smaller arteries leave the aorta in a CT scan, then lays them out in a custom 3D Slicer workspace. It proposes curved branch paths and cross-checks each one with CT cross-sections and small 3D neural networks that run on CPU. On the development cases it matched 17 of 19 branch origins, a 91.9% F1 score.</p>
+          <p class="project__stack">Python, 3D Slicer, SimpleITK</p>
+          <p class="project__links">
+            <a href="https://github.com/Toastyybread1/toralis-challenge" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot" href="https://devpost.com/software/live-forge" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/chaos-roll.png" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">Chaos Roll <span class="project__badge">1st place, Hack the Valley Hack Day</span></h2>
+          <p class="project__text">A wave-survival game where Gemini creates new abilities every 15 seconds. The game checks each one before adding it to a run. You also race an AI through the same waves.</p>
+          <p class="project__stack">TypeScript, React, Vite, Gemini API</p>
+          <p class="project__links">
+            <a href="https://devpost.com/software/live-forge" target="_blank" rel="noopener noreferrer">devpost</a>
+            <a href="https://github.com/HisMonDon/htv_hack_day" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+      <li class="project">
+        <a class="project__shot" href="https://devpost.com/software/bojon" target="_blank" rel="noopener noreferrer" tabindex="-1" aria-hidden="true">
+          <img src="../assets/img/bojon.png" alt="" loading="lazy" decoding="async">
+        </a>
+        <div>
+          <h2 class="project__title">Bojon <span class="project__badge">ribbon prize, Hack the 6ix</span></h2>
+          <p class="project__text">Head-to-head interview practice. Gemini writes the questions, Twelve Labs scores the video answers and the winner gains Elo.</p>
+          <p class="project__stack">JavaScript, Gemini, Twelve Labs, MongoDB, Auth0</p>
+          <p class="project__links">
+            <a href="https://devpost.com/software/bojon" target="_blank" rel="noopener noreferrer">devpost</a>
+            <a href="https://github.com/MrJelloCode/Bojon" target="_blank" rel="noopener noreferrer">source</a>
+          </p>
+        </div>
+      </li>
+
+    </ul>
+  </main>
+
+  <footer class="foot">
+    <span>sulaiman qazi, <span class="num">2026</span></span>
+    <div class="foot__end">
+      <button class="linkbtn" type="button" data-theme-toggle>dark mode</button>
+      <nav class="webring" aria-label="UWaterloo CS Webring">
+        <a href="https://cs.uwatering.com/#sulaimanq.com?nav=prev" aria-label="Previous site in the UWaterloo CS Webring" title="Previous site">&larr;</a>
+        <a href="https://cs.uwatering.com/#sulaimanq.com" target="_blank" rel="noopener noreferrer" aria-label="UWaterloo CS Webring" title="UWaterloo CS Webring">
+          <img src="https://cs.uwatering.com/icon.red.svg" alt="" width="20" height="20">
+        </a>
+        <a href="https://cs.uwatering.com/#sulaimanq.com?nav=next" aria-label="Next site in the UWaterloo CS Webring" title="Next site">&rarr;</a>
+      </nav>
+    </div>
+  </footer>
+
+</div>
+
+<dialog class="cmdk" id="cmdk" aria-label="Search the site">
+  <div class="cmdk__bar">
+    <input class="cmdk__input" id="cmdk-input" type="text"
+           autocomplete="off" autocorrect="off" spellcheck="false"
+           placeholder="go to a page, copy my email, open a link"
+           role="combobox" aria-expanded="true" aria-controls="cmdk-list"
+           aria-autocomplete="list" aria-label="Search the site">
+    <kbd aria-hidden="true">esc</kbd>
+  </div>
+  <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
+  <p class="cmdk__empty" hidden>nothing matches that</p>
+  <p class="vh" id="cmdk-status" aria-live="polite"></p>
+</dialog>
+
+<script src="../assets/js/site.js"></script>
+<script src="../assets/js/cmdk.js"></script>
+</body>
+</html>

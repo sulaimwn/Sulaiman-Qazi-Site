@@ -1,852 +1,130 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-root="./">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sulaiman Qazi - CS @ UWaterloo</title>
-<meta name="description" content="Sulaiman Qazi - Computer Science at the University of Waterloo. Game Boy emulator in C, AI-driven games, autonomous robotics navigation, and research software at Sunnybrook Research Institute.">
+<title>Sulaiman Qazi</title>
+<meta name="description" content="Sulaiman Qazi studies Computer Science at the University of Waterloo and is a software engineer at WATonomous. He built a live election forecast, an MCP server for LibrePCB and a Game Boy emulator in C.">
 <meta name="author" content="Sulaiman Qazi">
-<meta name="theme-color" content="#08090c" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#f3f1ed" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#fbfaf8" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#111113" media="(prefers-color-scheme: dark)">
+<link rel="canonical" href="https://sulaimanq.com/">
 
 <meta property="og:type" content="website">
-<meta property="og:title" content="Sulaiman Qazi - CS @ UWaterloo">
-<meta property="og:description" content="Emulators, AI-driven games, and research software. CS at Waterloo.">
-<meta property="og:image" content="assets/img/og.jpg">
+<meta property="og:url" content="https://sulaimanq.com/">
+<meta property="og:title" content="Sulaiman Qazi">
+<meta property="og:description" content="CS at Waterloo and software engineer at WATonomous.">
+<meta property="og:image" content="https://sulaimanq.com/assets/img/og.jpg">
 <meta name="twitter:card" content="summary_large_image">
 
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
-<link rel="preload" href="assets/fonts/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/schibsted-grotesk-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/jetbrains-mono-latin.woff2" as="font" type="font/woff2" crossorigin>
-
-<link rel="stylesheet" href="assets/css/fonts.css">
-<link rel="stylesheet" href="assets/css/tokens.css">
-<link rel="stylesheet" href="assets/css/base.css">
-<link rel="stylesheet" href="assets/css/chrome.css?v=20260806-5">
-<link rel="stylesheet" href="assets/css/hero.css">
-<link rel="stylesheet" href="assets/css/intro.css">
-<link rel="stylesheet" href="assets/css/sections.css">
-<link rel="stylesheet" href="assets/css/projects.css">
-<link rel="stylesheet" href="assets/css/cmdk.css">
-<link rel="stylesheet" href="assets/css/views.css">
-<link rel="stylesheet" href="assets/css/print.css" media="print">
+<link rel="preload" href="assets/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
 
 <script>
-  /* Set before first paint: no theme flash, and reveal styles only with JS. */
+  /* Set the theme before first paint so there is no flash. */
   (function () {
     var d = document.documentElement;
-    d.classList.add('js');
     try {
       var saved = localStorage.getItem('sq-theme');
-      var sys = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+      var sys = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
       d.setAttribute('data-theme', saved || sys);
-    } catch (e) { /* private mode - keep the default */ }
+    } catch (e) { d.setAttribute('data-theme', 'light'); }
   })();
 </script>
 </head>
 
 <body>
+<a class="skip" href="#main">Skip to content</a>
 
-<a class="skip-link" href="#main">Skip to content</a>
-<div class="grain" aria-hidden="true"></div>
-<div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+<div class="wrap">
 
-<!-- ======================================================================
-     RAIL - desktop navigation
-     ====================================================================== -->
-<nav class="rail" aria-label="Section navigation">
-  <a class="rail__mark" href="#top" aria-label="Sulaiman Qazi - top of page">
-    <svg viewBox="0 0 40 40" aria-hidden="true">
-      <circle cx="20" cy="20" r="18" class="rail__mark-ring"/>
-      <path d="M13 25.4c1.7 1.5 3.9 2.3 6.4 2.3 3.4 0 5.6-1.6 5.6-4 0-2.2-1.4-3.3-4.6-4.1l-2.1-.5c-3.3-.8-5.1-2.6-5.1-5.4 0-3.4 2.8-5.7 7-5.7 2.3 0 4.3.6 5.8 1.7"
-            class="rail__mark-glyph"/>
-    </svg>
-  </a>
+  <header class="top">
+    <h1 class="name">Sulaiman Qazi</h1>
+    <nav class="nav" aria-label="Pages">
+      <a href="./" aria-current="page">home</a>
+      <a href="projects/">projects</a>
+    </nav>
+  </header>
 
-  <ul class="rail__list">
-    <li><a class="rail__item" href="#home"       data-rail="home"><span class="rail__via"></span><span class="rail__label">Home</span><span class="rail__no">00</span></a></li>
-    <li><a class="rail__item" href="#experience" data-rail="experience"><span class="rail__via"></span><span class="rail__label">Experience</span><span class="rail__no">01</span></a></li>
-    <li><a class="rail__item" href="#projects"   data-rail="projects"><span class="rail__via"></span><span class="rail__label">Projects</span><span class="rail__no">02</span></a></li>
-    <li><a class="rail__item" href="#skills"     data-rail="skills"><span class="rail__via"></span><span class="rail__label">Skills</span><span class="rail__no">03</span></a></li>
-    <li><a class="rail__item" href="#contact"    data-rail="contact"><span class="rail__via"></span><span class="rail__label">Contact</span><span class="rail__no">04</span></a></li>
-  </ul>
-  <div class="rail__trace" aria-hidden="true"><span class="rail__trace-fill"></span></div>
+  <main id="main">
+    <p class="tagline">
+      cs @ <a class="chip" href="https://uwaterloo.ca/" target="_blank" rel="noopener noreferrer"><img src="assets/img/uwaterloo-seal.png" alt="">university of waterloo</a>
+    </p>
 
-  <div class="rail__tools">
-    <button class="cmdk-trigger rail__cmdk" type="button" data-cmdk-open
-            aria-label="Open command menu">
-      <kbd data-cmdk-key aria-hidden="true">Ctrl K</kbd>
-    </button>
-    <button class="theme-toggle rail__theme" type="button" aria-pressed="false" aria-label="Switch to light theme">
-      <span class="theme-toggle__track"><span class="theme-toggle__knob"></span></span>
-    </button>
-  </div>
-</nav>
+    <p class="links">
+      <a href="mailto:s6qazi@uwaterloo.ca">email</a>
+      <a href="https://github.com/sulaimwn" target="_blank" rel="noopener noreferrer">github</a>
+      <a href="https://www.linkedin.com/in/sulaimanq/" target="_blank" rel="noopener noreferrer">linkedin</a>
+      <a href="https://devpost.com/sulaimanqazi" target="_blank" rel="noopener noreferrer">devpost</a>
+      <a href="assets/img/sulaiman-qazi-resume.pdf" target="_blank" rel="noopener">resume</a>
+    </p>
 
-<!-- ======================================================================
-     TOPBAR - mobile only
-     ====================================================================== -->
-<header class="topbar">
-  <a class="topbar__mark" href="#top">
-    <span class="topbar__mono">SQ</span>
-    <span class="topbar__status"><span class="pulse-dot"></span> Waterloo ’31</span>
-  </a>
-  <div class="topbar__actions">
-    <button class="theme-toggle" type="button" aria-pressed="false" aria-label="Switch to light theme">
-      <span class="theme-toggle__track"><span class="theme-toggle__knob"></span></span>
-    </button>
-    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">
-      <span class="menu-btn__bars" aria-hidden="true"><i></i><i></i></span>
-      <span class="vh">Open navigation</span>
-    </button>
-  </div>
-</header>
+    <section class="block" aria-labelledby="h-now">
+      <h2 class="block__h" id="h-now">currently</h2>
+      <ul class="bullets">
+        <li>software engineer @ <a class="chip" href="https://watonomous.ca/" target="_blank" rel="noopener noreferrer"><img src="assets/img/watonomous.jpg" alt="">watonomous</a></li>
+        <li>looking for summer 2027 internships in ml or software that runs close to hardware</li>
+      </ul>
+    </section>
 
-<!-- Read position for small screens, where the rail (and its progress
-     trace) is hidden. -->
-<div class="scroll-progress" aria-hidden="true"><span class="scroll-progress__fill"></span></div>
+    <section class="block" aria-labelledby="h-built">
+      <h2 class="block__h" id="h-built">what i've built</h2>
+      <ul class="bullets">
+        <li><a href="https://pollsvsodds.com/" target="_blank" rel="noopener noreferrer" data-peek="assets/img/polls-vs-odds.png" data-peek-fit="contain">polls vs. odds</a>, a live site comparing polls with polymarket and kalshi odds for every 2026 house and senate race</li>
+        <li>an <a href="https://github.com/sulaimwn/LibrePCB-MCP-Server" target="_blank" rel="noopener noreferrer" data-peek="assets/img/librepcb-mcp.png" data-peek-fit="white">mcp server for librepcb</a> that lets ai clients run checks on circuit boards and export them</li>
+        <li>a <a href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer" data-peek="sprite">game boy emulator in c</a> and a <a href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer" data-peek="assets/img/chip8-emulator.gif">chip-8 interpreter in c++</a>, both from the instruction set up</li>
+        <li>a <a href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer" data-peek="assets/img/smartwatch-schematic.png" data-peek-fit="white">health tracking smartwatch</a> on a custom esp32 pcb</li>
+      </ul>
+      <a class="more" href="projects/">all projects</a>
+    </section>
 
-<div class="menu" id="menu" hidden>
-  <ul class="menu__list">
-    <li><a href="#home"><span class="menu__no">00</span> Home</a></li>
-    <li><a href="#experience"><span class="menu__no">01</span> Experience</a></li>
-    <li><a href="#projects"><span class="menu__no">02</span> Projects</a></li>
-    <li><a href="#skills"><span class="menu__no">03</span> Skills</a></li>
-    <li><a href="#contact"><span class="menu__no">04</span> Contact</a></li>
-  </ul>
-  <div class="menu__foot">
-    <a class="link" href="mailto:s6qazi@uwaterloo.ca">s6qazi@uwaterloo.ca</a>
-  </div>
+    <section class="block" aria-labelledby="h-before">
+      <h2 class="block__h" id="h-before">previously</h2>
+      <ul class="bullets">
+        <li>ml research and firmware engineering intern @ <span class="nb"><a class="chip" href="https://research.sunnybrook.ca/" target="_blank" rel="noopener noreferrer"><img src="assets/img/sunnybrook.png" alt="">sunnybrook research institute</a>.</span> programmed an automated tester in c++, <span class="num">33%</span> cheaper than what it replaced</li>
+        <li>1st place overall @ <span class="nb"><a class="chip" href="https://devpost.com/software/live-forge" target="_blank" rel="noopener noreferrer"><img src="assets/img/hack-the-valley.png" alt="">hack the valley hack day</a></span> and ribbon prize @ <a class="chip" href="https://devpost.com/software/bojon" target="_blank" rel="noopener noreferrer"><img src="assets/img/hack-the-6ix.png" alt="">hack the 6ix</a></li>
+        <li>programmer @ <span class="nb"><a class="chip" href="https://www.instagram.com/hurricane_stormbots/" target="_blank" rel="noopener noreferrer"><img src="assets/img/stormbots.png" alt="">ftc 22603</a>.</span> think award at canada cup</li>
+        <li>led the math, stem and cs clubs at <span class="nb"><a class="chip" href="https://jclarkerichardson.ddsb.ca/en/index.aspx" target="_blank" rel="noopener noreferrer"><img src="assets/img/jcr-crest.png" alt="">my highschool</a>.</span> <span class="num">250+</span> members</li>
+        <li>taught kids to code @ <a class="chip" href="https://ydcuni.com/" target="_blank" rel="noopener noreferrer"><img src="assets/img/ydc.png" alt="">ydc</a> since grade 9</li>
+      </ul>
+    </section>
+
+    <p class="block dim">outside of that, i listen to a lot of music, cook, and watch anime</p>
+  </main>
+
+  <footer class="foot">
+    <span>sulaiman qazi, <span class="num">2026</span></span>
+    <div class="foot__end">
+      <button class="linkbtn" type="button" data-theme-toggle>dark mode</button>
+      <nav class="webring" aria-label="UWaterloo CS Webring">
+        <a href="https://cs.uwatering.com/#sulaimanq.com?nav=prev" aria-label="Previous site in the UWaterloo CS Webring" title="Previous site">&larr;</a>
+        <a href="https://cs.uwatering.com/#sulaimanq.com" target="_blank" rel="noopener noreferrer" aria-label="UWaterloo CS Webring" title="UWaterloo CS Webring">
+          <img src="https://cs.uwatering.com/icon.red.svg" alt="" width="20" height="20">
+        </a>
+        <a href="https://cs.uwatering.com/#sulaimanq.com?nav=next" aria-label="Next site in the UWaterloo CS Webring" title="Next site">&rarr;</a>
+      </nav>
+    </div>
+  </footer>
+
 </div>
 
-<main id="main" class="main" tabindex="-1">
-<p class="vh" id="view-status" aria-live="polite"></p>
-<span id="top"></span>
-
-<!-- ======================================================================
-     00 - HOME
-     ====================================================================== -->
-<section class="intro" id="home" data-view aria-labelledby="intro-name">
-  <canvas class="intro__field" id="wavefield" aria-hidden="true"></canvas>
-  <div class="intro__veil" aria-hidden="true"></div>
-
-  <div class="intro__inner shell">
-    <div class="intro__wrap">
-
-      <header class="intro__top" data-reveal style="--i:0">
-        <h1 class="intro__name" id="intro-name">Sulaiman Qazi</h1>
-        <nav class="intro__links" aria-label="Profiles">
-          <a href="mailto:s6qazi@uwaterloo.ca">email</a>
-          <a href="https://github.com/sulaimwn" target="_blank" rel="noopener noreferrer">github</a>
-          <a href="https://www.linkedin.com/in/sulaimanq/" target="_blank" rel="noopener noreferrer">linkedin</a>
-          <a href="https://devpost.com/sulaimanqazi" target="_blank" rel="noopener noreferrer">devpost</a>
-          <a href="assets/img/sulaiman-qazi-resume.pdf" target="_blank" rel="noopener noreferrer">resume</a>
-        </nav>
-      </header>
-
-      <p class="intro__study" data-reveal style="--i:1">
-        cs @
-        <a class="chip-link chip--copper" href="https://uwaterloo.ca/" target="_blank" rel="noopener noreferrer">
-          <img src="assets/img/uwaterloo-seal.png" alt="" loading="lazy" decoding="async">university of waterloo</a>
-      </p>
-
-      <div class="intro__block" data-reveal style="--i:2">
-        <h2 class="intro__h">what i'm doing</h2>
-        <ul class="intro__list">
-          <li>seeking summer 2027 internship opportunities</li>
-          <li>ml research @
-            <a class="chip-link chip--signal" href="https://research.sunnybrook.ca/" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/sunnybrook.png" alt="" loading="lazy" decoding="async">sunnybrook research institute</a>
-          </li>
-        </ul>
-      </div>
-
-      <div class="intro__block" data-reveal style="--i:3">
-        <h2 class="intro__h">what i've done</h2>
-        <ul class="intro__list">
-          <li>firmware engineering intern @
-            <a class="chip-link chip--signal" href="https://research.sunnybrook.ca/" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/sunnybrook.png" alt="" loading="lazy" decoding="async">sunnybrook research institute</a>.
-            programmed an automated tester in c++, 33% cheaper than what it replaced
-          </li>
-          <li>1st place overall @
-            <a class="chip-link chip--violet" href="https://devpost.com/software/live-forge" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/hack-the-valley.png" alt="" loading="lazy" decoding="async">hack the valley</a>,
-            university of toronto
-          </li>
-          <li>
-            <a class="chip-link chip--plain" href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/github.png" alt="" loading="lazy" decoding="async">game boy emulator in c</a>,
-            <a class="chip-link chip--plain" href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/github.png" alt="" loading="lazy" decoding="async">chip-8 interpreter in c++</a>,
-            both from the instruction set up
-          </li>
-          <li>led every tech adjacent club at
-            <a class="chip-link chip--copper" href="https://jclarkerichardson.ddsb.ca/en/index.aspx" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/jcr-crest.png" alt="" loading="lazy" decoding="async">my highschool</a>. 250+ members
-          </li>
-          <li>programmer @
-            <a class="chip-link chip--violet" href="https://www.instagram.com/hurricane_stormbots/" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/stormbots.png" alt="" loading="lazy" decoding="async">ftc 22603</a>.
-            think award at canada cup
-          </li>
-          <li>ribbon prize @
-            <a class="chip-link chip--signal" href="https://devpost.com/software/bojon" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/hack-the-6ix.png" alt="" loading="lazy" decoding="async">hack the 6ix</a>
-          </li>
-          <li>taught kids to code @
-            <a class="chip-link chip--copper" href="https://ydcuni.com/" target="_blank" rel="noopener noreferrer">
-              <img src="assets/img/ydc.png" alt="" loading="lazy" decoding="async">ydc</a> since grade 9
-          </li>
-        </ul>
-      </div>
-
-      <div class="intro__block" data-reveal style="--i:4">
-        <h2 class="intro__h">what i'm looking to do</h2>
-        <ul class="intro__list">
-          <li>machine learning and embedded systems roles</li>
-        </ul>
-      </div>
-
-      <p class="intro__outside" data-reveal style="--i:5">
-        outside of that, i listen to a lot of music, cook, and watch anime
-      </p>
-
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     01 - EXPERIENCE
-     ====================================================================== -->
-<section class="section record" id="experience" data-view aria-labelledby="experience-title">
-  <div class="shell">
-    <header class="section-head">
-      <p class="section-slug mono" data-reveal>
-        <span class="section-slug__no">01</span>
-        <span>Experience</span>
-        <span class="section-slug__rule"></span>
-        <span class="section-slug__meta">2022 - 2031</span>
-      </p>
-      <div class="section-title-row">
-        <h2 class="h1" id="experience-title" data-reveal style="--i:1">Experience.</h2>
-      </div>
-    </header>
-
-    <!-- ------------------------------------------------------------------
-         EDUCATION - first, because it is the first thing anyone looks for.
-         It used to sit at the bottom of a flat nine-entry list, behind
-         seven other roles.
-         ------------------------------------------------------------------ -->
-    <div class="rec-group">
-      <h3 class="rec-sub" data-reveal>
-        <span class="rec-sub__label label">Education</span>
-        <span class="rec-sub__rule" aria-hidden="true"></span>
-        <span class="rec-sub__meta label">Waterloo ’31</span>
-      </h3>
-
-      <div class="creds">
-        <article class="cred cred--next" data-reveal="fade">
-          <div class="cred__top">
-            <img class="cred__mark cred__mark--pad" src="assets/img/uwaterloo-seal.png" alt="" loading="lazy" decoding="async">
-            <p class="cred__when label"><span class="num">2026 — 2031</span></p>
-            <span class="chip chip--live">Incoming</span>
-          </div>
-          <h4 class="cred__school">University of Waterloo</h4>
-          <p class="cred__degree">Bachelor of Computer Science</p>
-          <p class="cred__where label">Waterloo, Ontario</p>
-        </article>
-
-        <article class="cred" data-reveal="fade" style="--i:1">
-          <div class="cred__top">
-            <img class="cred__mark" src="assets/img/jcr-crest.png" alt="" loading="lazy" decoding="async">
-            <p class="cred__when label"><span class="num">2022 — 2026</span></p>
-          </div>
-          <h4 class="cred__school">J. Clarke Richardson Collegiate</h4>
-          <p class="cred__degree">Ontario Secondary School Diploma</p>
-          <p class="cred__where label">Ajax, Ontario</p>
-        </article>
-      </div>
-    </div>
-
-    <!-- ------------------------------------------------------------------
-         WORK - paid roles only, at full weight. Robotics, clubs and
-         teaching are real but they are not jobs; they are in the roll.
-         ------------------------------------------------------------------ -->
-    <div class="rec-group">
-      <h3 class="rec-sub" data-reveal>
-        <span class="rec-sub__label label">Work</span>
-        <span class="rec-sub__rule" aria-hidden="true"></span>
-        <span class="rec-sub__meta label"><span class="num">2</span> internships</span>
-      </h3>
-
-      <ol class="timeline" id="timeline">
-        <li class="tl" data-reveal style="--i:0">
-          <span class="tl__node" aria-hidden="true"></span>
-          <div class="tl__when"><span class="num">Jul 2026</span><span class="tl__now">Present</span></div>
-          <div class="tl__what">
-            <p class="tl__org label">
-              <img class="org-logo" src="assets/img/sunnybrook.png" alt="" loading="lazy" decoding="async">
-              Sunnybrook Research Institute <span class="chip chip--live">Current</span>
-            </p>
-            <h4 class="h3 tl__role">Machine Learning Research Intern</h4>
-            <!-- Present tense: this role is still running. -->
-            <ul class="tl__points">
-              <li>Building ultrasound simulations in MATLAB, Python and k-Wave.</li>
-              <li>Training a PyTorch model to detect red blood cells.</li>
-              <li>Designing a 3D-printed spine model for testing.</li>
-            </ul>
-            <div class="tag-row"><span class="tag">Python</span><span class="tag">MATLAB</span><span class="tag">PyTorch</span><span class="tag">k-Wave</span><span class="tag">SOLIDWORKS</span></div>
-          </div>
-        </li>
-
-        <li class="tl" data-reveal style="--i:1">
-          <span class="tl__node" aria-hidden="true"></span>
-          <div class="tl__when"><span class="num">Jul 2025</span><span>Aug 2025</span></div>
-          <div class="tl__what">
-            <p class="tl__org label">
-              <img class="org-logo" src="assets/img/sunnybrook.png" alt="" loading="lazy" decoding="async">
-              Sunnybrook Research Institute
-            </p>
-            <h4 class="h3 tl__role">Firmware Engineering Intern</h4>
-            <ul class="tl__points">
-              <li>Wrote embedded C++ for an RP2040 test system.</li>
-              <li>Designed its four-layer PCB in Altium.</li>
-              <li>Hand-soldered 200+ parts, cut costs by 33% and added automated tests.</li>
-            </ul>
-            <div class="tag-row"><span class="tag">Embedded C++</span><span class="tag">RP2040</span><span class="tag">GitLab</span><span class="tag">Altium</span></div>
-          </div>
-        </li>
-
-      </ol>
-    </div>
-
-    <!-- ------------------------------------------------------------------
-         THE ROLL - robotics, clubs, mentoring and camp work. All real,
-         none of it worth a screen each, so it is one line each and opens
-         on demand. Anything that earned an award says so on the closed
-         row: the point is to compress these, not to bury them.
-         ------------------------------------------------------------------ -->
-    <div class="rec-group" id="roll">
-      <h3 class="rec-sub" data-reveal>
-        <span class="rec-sub__label label">Robotics, clubs &amp; teaching</span>
-        <span class="rec-sub__rule" aria-hidden="true"></span>
-        <span class="rec-sub__meta label"><span class="num">5</span> roles · open for detail</span>
-      </h3>
-
-      <ol class="roll" data-reveal="fade">
-        <li class="roll__item">
-          <details class="roll__d">
-            <summary class="roll__sum">
-              <span class="roll__chev" aria-hidden="true"></span>
-              <span class="roll__when num">2025 — 2026</span>
-              <span class="roll__org">FTC 22603 · Hurricane Stormbots</span>
-              <span class="roll__role">
-                Programmer
-                <span class="roll__badge"><span aria-hidden="true">★</span> 1st Inspire Award</span>
-              </span>
-            </summary>
-            <div class="roll__body">
-              <ul class="tl__points">
-                <li>Programmed autonomous odometry in Java.</li>
-                <li>Won the 1st Inspire Award and Think Award at the Canada World Cup.</li>
-              </ul>
-              <div class="tag-row"><span class="tag">Java</span><span class="tag">Odometry</span><span class="tag">Autonomous</span></div>
-              <p class="build__links">
-                <a class="link mono" href="https://github.com/sulaimwn/HurricaneCode" target="_blank" rel="noopener noreferrer">Robot code <span aria-hidden="true">↗</span></a>
-              </p>
-            </div>
-          </details>
-        </li>
-
-        <li class="roll__item">
-          <details class="roll__d">
-            <summary class="roll__sum">
-              <span class="roll__chev" aria-hidden="true"></span>
-              <span class="roll__when num">2024 — 2026</span>
-              <span class="roll__org">J. Clarke Richardson Collegiate</span>
-              <span class="roll__role">Co-President · Math, STEM &amp; CS Clubs</span>
-            </summary>
-            <div class="roll__body">
-              <ul class="tl__points">
-                <li>Led weekly activities for 250+ members across three clubs.</li>
-              </ul>
-              <div class="tag-row"><span class="tag">Leadership</span><span class="tag">Curriculum</span><span class="tag">Events</span></div>
-            </div>
-          </details>
-        </li>
-
-        <li class="roll__item">
-          <details class="roll__d">
-            <summary class="roll__sum">
-              <span class="roll__chev" aria-hidden="true"></span>
-              <span class="roll__when num">2023 — 2026</span>
-              <span class="roll__org">Youth Dream Canada</span>
-              <span class="roll__role">Coding Mentor</span>
-            </summary>
-            <div class="roll__body">
-              <ul class="tl__points">
-                <li>Taught coding through hands-on projects.</li>
-              </ul>
-              <div class="tag-row"><span class="tag">Teaching</span><span class="tag">Python</span></div>
-            </div>
-          </details>
-        </li>
-
-        <li class="roll__item">
-          <details class="roll__d">
-            <summary class="roll__sum">
-              <span class="roll__chev" aria-hidden="true"></span>
-              <span class="roll__when num">2022 — 2025</span>
-              <span class="roll__org">VEX Robotics · Stormbots 50760A</span>
-              <span class="roll__role">
-                Head Captain
-                <span class="roll__badge"><span aria-hidden="true">★</span> Regional bronze</span>
-              </span>
-            </summary>
-            <div class="roll__body">
-              <ul class="tl__points">
-                <li>Led an eight-person team to a regional bronze medal.</li>
-              </ul>
-              <div class="tag-row"><span class="tag">VEX</span><span class="tag">Team lead</span></div>
-            </div>
-          </details>
-        </li>
-
-        <li class="roll__item">
-          <details class="roll__d">
-            <summary class="roll__sum">
-              <span class="roll__chev" aria-hidden="true"></span>
-              <span class="roll__when num">Summer 2024</span>
-              <span class="roll__org">The STEAM Project</span>
-              <span class="roll__role">Summer Camp Counsellor</span>
-            </summary>
-            <div class="roll__body">
-              <ul class="tl__points">
-                <li>Led hands-on STEAM activities for campers.</li>
-              </ul>
-              <div class="tag-row"><span class="tag">Teaching</span><span class="tag">STEAM</span></div>
-            </div>
-          </details>
-        </li>
-      </ol>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     02 - PROJECTS
-     ====================================================================== -->
-<section class="section builds" id="projects" data-view aria-labelledby="projects-title">
-  <div class="shell">
-    <header class="section-head">
-      <p class="section-slug mono" data-reveal>
-        <span class="section-slug__no">02</span>
-        <span>Projects</span>
-        <span class="section-slug__rule"></span>
-        <span class="section-slug__meta">5 selected</span>
-      </p>
-      <div class="section-title-row">
-        <h2 class="h1" id="projects-title" data-reveal style="--i:1">Projects.</h2>
-      </div>
-    </header>
-
-    <!-- FEATURED --------------------------------------------------------- -->
-    <article class="build build--feature" data-reveal="fade">
-      <div class="build__art build__art--shot">
-        <img src="assets/img/chaos-roll.png"
-             alt="Chaos Roll title screen: a generative survival arena with a pixel-art character and a start run button."
-             loading="lazy" decoding="async">
-      </div>
-      <div class="build__body">
-        <p class="build__award"><span class="build__medal" aria-hidden="true">★</span> 1st Place Overall - Hack the Valley Hack Day</p>
-        <h3 class="h2 build__title">Chaos Roll</h3>
-        <p class="build__sub label">Wave-survival game · Gemini-generated content</p>
-        <p class="prose">
-          A wave-survival game where Gemini creates new abilities every 15
-          seconds. The game checks each one before adding it to a run. You also
-          race an AI through the same waves.
-        </p>
-        <div class="tag-row">
-          <span class="tag">Gemini API</span><span class="tag">TypeScript</span>
-          <span class="tag">React</span><span class="tag">Vite</span>
-          <span class="tag">Procedural generation</span>
-        </div>
-        <p class="build__links">
-          <a class="link mono" href="https://devpost.com/software/live-forge" target="_blank" rel="noopener noreferrer">Devpost <span aria-hidden="true">↗</span></a>
-          <a class="link mono" href="https://github.com/HisMonDon/htv_hack_day" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
-        </p>
-      </div>
-    </article>
-
-    <!-- SECOND ----------------------------------------------------------- -->
-    <article class="build build--wide build--flip" data-reveal="fade">
-      <div class="build__art build__art--shot">
-        <img src="assets/img/bojon.png"
-             alt="Bojon landing screen: Enter the Interview Arena, with a start my interview battle button."
-             loading="lazy" decoding="async">
-      </div>
-      <div class="build__body">
-        <p class="build__award"><span class="build__medal" aria-hidden="true">★</span> Ribbon Prize - Hack the 6ix 2025</p>
-        <h3 class="h2 build__title">Bojon</h3>
-        <p class="build__sub label">Competitive 1v1 interview practice</p>
-        <p class="prose">
-          Head-to-head interview practice. Gemini writes the questions, Twelve
-          Labs scores the video answers and the winner gains Elo.
-        </p>
-        <div class="tag-row">
-          <span class="tag">Gemini Pro</span><span class="tag">Twelve Labs</span>
-          <span class="tag">MongoDB</span><span class="tag">Auth0</span>
-          <span class="tag">JavaScript</span>
-        </div>
-        <p class="build__links">
-          <a class="link mono" href="https://devpost.com/software/bojon" target="_blank" rel="noopener noreferrer">Devpost <span aria-hidden="true">↗</span></a>
-          <a class="link mono" href="https://github.com/MrJelloCode/Bojon" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
-        </p>
-      </div>
-    </article>
-
-    <!-- PAIR - the two emulators -------------------------------------- -->
-    <div class="build-pair">
-      <article class="build build--tall" data-reveal="fade">
-        <div class="build__art build__art--tall">
-          <span class="build__hint" aria-hidden="true">Move to scrub</span>
-          <div class="sprite sprite--gameboy" role="img"
-               aria-label="Sulaiman's Game Boy emulator running a commercial ROM: two fighters trading blows on a stage."></div>
-          <span class="build__scan" aria-hidden="true"></span>
-        </div>
-        <div class="build__body">
-          <h3 class="h2 build__title">Game Boy Emulator</h3>
-          <p class="build__sub label">C · SDL2 · Sharp LR35902</p>
-          <p class="prose">
-            A Game Boy emulator in C with a working LR35902 CPU, memory map, I/O,
-            PPU, input and SDL2 rendering.
-          </p>
-          <div class="tag-row"><span class="tag">C</span><span class="tag">SDL2</span><span class="tag">CMake</span><span class="tag">Architecture</span></div>
-          <p class="build__links">
-            <a class="link mono" href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
-          </p>
-        </div>
-      </article>
-
-      <article class="build build--tall" data-reveal="fade">
-        <div class="build__art build__art--tall build__art--gif">
-          <img src="assets/img/chip8-emulator.gif"
-               alt="CHIP-8 emulator running in a desktop browser."
-               loading="lazy" decoding="async">
-        </div>
-        <div class="build__body">
-          <h3 class="h2 build__title">CHIP-8 Interpreter</h3>
-          <p class="build__sub label">C++ · SDL2 · 64×32 display</p>
-          <p class="prose">
-            My first emulator: 35 opcodes, a 64×32 display, timers and a hex
-            keypad. It runs real CHIP-8 ROMs.
-          </p>
-          <div class="tag-row"><span class="tag">C++</span><span class="tag">SDL2</span><span class="tag">Interpreters</span></div>
-          <p class="build__links">
-            <a class="link mono" href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
-          </p>
-        </div>
-      </article>
-    </div>
-
-    <!-- HARDWARE --------------------------------------------------------- -->
-    <article class="build build--wide" data-reveal="fade">
-      <div class="build__art build__art--shot build__art--schematic">
-        <img src="assets/img/smartwatch-schematic.png"
-             alt="Complete ESP32 smartwatch schematic showing power, display, sensors, storage and connector circuits."
-             loading="lazy" decoding="async">
-      </div>
-      <div class="build__body">
-        <h3 class="h2 build__title">Health Tracking Smartwatch</h3>
-        <p class="build__sub label">ESP32 · custom PCB · Arduino</p>
-        <p class="prose">
-          An ESP32 smartwatch with a custom PCB, TFT display, heart-rate sensor
-          and step tracking. I designed the board, reflowed it and wrote the
-          firmware.
-        </p>
-        <div class="tag-row"><span class="tag">ESP32</span><span class="tag">Arduino</span><span class="tag">PCB design</span></div>
-        <p class="build__links">
-          <a class="link mono" href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer">Source <span aria-hidden="true">↗</span></a>
-        </p>
-      </div>
-    </article>
-
-    <div class="builds__more" data-reveal>
-      <a class="link mono" href="https://github.com/sulaimwn" target="_blank" rel="noopener noreferrer">
-        More on GitHub <span aria-hidden="true">↗</span>
-      </a>
-      <a class="link mono" href="https://devpost.com/sulaimanqazi" target="_blank" rel="noopener noreferrer">
-        Devpost <span aria-hidden="true">↗</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     03 - SKILLS
-     ====================================================================== -->
-<section class="section stack-sec" id="skills" data-view aria-labelledby="skills-title">
-  <div class="shell">
-    <header class="section-head">
-      <p class="section-slug mono" data-reveal>
-        <span class="section-slug__no">03</span>
-        <span>Skills</span>
-        <span class="section-slug__rule"></span>
-        <span class="section-slug__meta">Toolkit</span>
-      </p>
-      <div class="section-title-row">
-        <h2 class="h1" id="skills-title" data-reveal style="--i:1">Skills &amp; tools.</h2>
-      </div>
-    </header>
-
-    <div class="proof">
-      <section class="proof__group" data-reveal="fade">
-        <h3 class="proof__title label">Languages</h3>
-        <ul class="proof__rows">
-          <li class="proof__row">
-            <span class="proof__skill">C</span>
-            <span class="proof__use">Game Boy CPU, PPU and memory</span>
-            <a class="proof__link" href="https://github.com/sulaimwn/Game-Boy-Emulator" target="_blank" rel="noopener noreferrer" aria-label="C: Game Boy emulator source"><span aria-hidden="true">↗</span></a>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">C++</span>
-            <span class="proof__use">CHIP-8 and RP2040 firmware</span>
-            <a class="proof__link" href="https://github.com/sulaimwn/CHIP8-CPP" target="_blank" rel="noopener noreferrer" aria-label="C++: CHIP-8 interpreter source"><span aria-hidden="true">↗</span></a>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Python</span>
-            <span class="proof__use">Ultrasound simulation and PyTorch</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Java</span>
-            <span class="proof__use">FTC autonomous odometry</span>
-            <a class="proof__link" href="https://github.com/sulaimwn/HurricaneCode" target="_blank" rel="noopener noreferrer" aria-label="Java: FTC robot code"><span aria-hidden="true">↗</span></a>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">TypeScript</span>
-            <span class="proof__use">Chaos Roll ability system</span>
-            <a class="proof__link" href="https://github.com/HisMonDon/htv_hack_day" target="_blank" rel="noopener noreferrer" aria-label="TypeScript: Chaos Roll source"><span aria-hidden="true">↗</span></a>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">JavaScript</span>
-            <span class="proof__use">Bojon, Chaos Roll and this site</span>
-            <a class="proof__link" href="https://github.com/MrJelloCode/Bojon" target="_blank" rel="noopener noreferrer" aria-label="JavaScript: Bojon source"><span aria-hidden="true">↗</span></a>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">MATLAB</span>
-            <span class="proof__use">k-Wave ultrasound simulation</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">PHP · MySQL</span>
-            <span class="proof__use">School projects and a small forum</span>
-            <span class="proof__link"></span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="proof__group" data-reveal="fade">
-        <h3 class="proof__title label">Libraries &amp; platforms</h3>
-        <ul class="proof__rows">
-          <li class="proof__row">
-            <span class="proof__skill">SDL2</span>
-            <span class="proof__use">Emulator rendering and input</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">PyTorch</span>
-            <span class="proof__use">Red blood cell detection</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Gemini API</span>
-            <span class="proof__use">Abilities and interview questions</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Twelve Labs</span>
-            <span class="proof__use">Video answer scoring</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">React · Vite</span>
-            <span class="proof__use">Chaos Roll front end</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">MongoDB · Auth0</span>
-            <span class="proof__use">Bojon accounts and matchmaking</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">k-Wave</span>
-            <span class="proof__use">Ultrasound research</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Git · GitLab</span>
-            <span class="proof__use">Projects and lab work</span>
-            <span class="proof__link"></span>
-          </li>
-        </ul>
-      </section>
-
-      <section class="proof__group" data-reveal="fade">
-        <h3 class="proof__title label">Hardware</h3>
-        <ul class="proof__rows">
-          <li class="proof__row">
-            <span class="proof__skill">RP2040</span>
-            <span class="proof__use">Automated tester firmware and PCB</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">ESP32</span>
-            <span class="proof__use">Health tracking smartwatch</span>
-            <a class="proof__link" href="https://github.com/sulaimwn/SmartWatch" target="_blank" rel="noopener noreferrer" aria-label="ESP32: smartwatch project"><span aria-hidden="true">↗</span></a>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Altium · KiCad</span>
-            <span class="proof__use">Four-layer PCB</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">SMD soldering</span>
-            <span class="proof__use">200+ joints and hot-plate reflow</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">SOLIDWORKS</span>
-            <span class="proof__use">3D-printed spine model</span>
-            <span class="proof__link"></span>
-          </li>
-          <li class="proof__row">
-            <span class="proof__skill">Blender · Fusion 360</span>
-            <span class="proof__use">Research models</span>
-            <span class="proof__link"></span>
-          </li>
-        </ul>
-      </section>
-    </div>
-  </div>
-</section>
-
-<!-- ======================================================================
-     04 - CONTACT
-     ====================================================================== -->
-<section class="section contact" id="contact" data-view aria-labelledby="contact-title">
-  <div class="contact__bg" aria-hidden="true">
-    <img src="assets/img/contact-bg.jpg" alt="" role="presentation" loading="lazy" decoding="async">
-  </div>
-  <div class="shell">
-    <header class="section-head">
-      <p class="section-slug mono" data-reveal>
-        <span class="section-slug__no">04</span>
-        <span>Contact</span>
-        <span class="section-slug__rule"></span>
-        <span class="section-slug__meta">Open to internships</span>
-      </p>
-    </header>
-
-    <div class="contact__grid">
-      <div>
-        <h2 class="h1 contact__title" id="contact-title" data-reveal>
-          Get in touch.
-        </h2>
-        <p class="lede contact__lede" data-reveal style="--i:1">
-          Open to internships, hackathons and systems or AI projects. Email me.
-        </p>
-      </div>
-
-      <ul class="pins" data-reveal="fade">
-        <li class="pin">
-          <span class="pin__no num">1</span>
-          <a class="pin__link" href="mailto:s6qazi@uwaterloo.ca">
-            <span class="pin__k label">Email</span>
-            <span class="pin__v">s6qazi@uwaterloo.ca</span>
-          </a>
-          <button class="pin__copy" type="button" data-copy="s6qazi@uwaterloo.ca">
-            <span class="pin__copy-txt">Copy</span>
-          </button>
-        </li>
-        <li class="pin">
-          <span class="pin__no num">2</span>
-          <a class="pin__link" href="https://www.linkedin.com/in/sulaimanq/" target="_blank" rel="noopener noreferrer">
-            <span class="pin__k label">LinkedIn</span>
-            <span class="pin__v">/in/sulaimanq <span class="pin__ext" aria-hidden="true">↗</span></span>
-          </a>
-        </li>
-        <li class="pin">
-          <span class="pin__no num">3</span>
-          <a class="pin__link" href="https://github.com/sulaimwn" target="_blank" rel="noopener noreferrer">
-            <span class="pin__k label">GitHub</span>
-            <span class="pin__v">@sulaimwn <span class="pin__ext" aria-hidden="true">↗</span></span>
-          </a>
-        </li>
-        <li class="pin pin--static">
-          <span class="pin__no num">4</span>
-          <span class="pin__link">
-            <span class="pin__k label">Location</span>
-            <span class="pin__v">Ontario, Canada · <span class="num" id="clock">-</span> ET</span>
-          </span>
-        </li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-</main>
-
-<footer class="foot">
-  <div class="shell foot__inner">
-    <p class="label">Sulaiman Qazi - <span class="num">2026</span></p>
-    <nav class="webring webring--footer" aria-label="UWaterloo CS Webring">
-      <a class="webring__nav" href="https://cs.uwatering.com/#sulaimanq.com?nav=prev"
-         aria-label="Previous site in the UWaterloo CS Webring" title="Previous site">&larr;</a>
-      <a class="webring__home" href="https://cs.uwatering.com/#sulaimanq.com"
-         target="_blank" rel="noopener noreferrer"
-         aria-label="View Sulaiman Qazi in the UWaterloo CS Webring" title="UWaterloo CS Webring">
-        <img src="https://cs.uwatering.com/icon.red.svg" alt="" width="24" height="24">
-      </a>
-      <a class="webring__nav" href="https://cs.uwatering.com/#sulaimanq.com?nav=next"
-         aria-label="Next site in the UWaterloo CS Webring" title="Next site">&rarr;</a>
-    </nav>
-  </div>
-</footer>
-
-<!-- ======================================================================
-     COMMAND MENU
-     ====================================================================== -->
-<dialog class="cmdk" id="cmdk" aria-label="Command menu">
+<dialog class="cmdk" id="cmdk" aria-label="Search the site">
   <div class="cmdk__bar">
-    <span class="cmdk__prompt" aria-hidden="true">&gt;</span>
     <input class="cmdk__input" id="cmdk-input" type="text"
            autocomplete="off" autocorrect="off" spellcheck="false"
-           placeholder="Jump to a section, copy an email, open a repo…"
+           placeholder="go to a page, copy my email, open a link"
            role="combobox" aria-expanded="true" aria-controls="cmdk-list"
-           aria-autocomplete="list" aria-label="Search commands">
+           aria-autocomplete="list" aria-label="Search the site">
     <kbd aria-hidden="true">esc</kbd>
   </div>
-
-  <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Commands"></ul>
-  <p class="cmdk__empty" hidden>No matching commands.</p>
-
-  <div class="cmdk__foot" aria-hidden="true">
-    <span><kbd>↑</kbd><kbd>↓</kbd> move</span>
-    <span><kbd>↵</kbd> run</span>
-    <span><kbd>esc</kbd> close</span>
-  </div>
-
+  <ul class="cmdk__list" id="cmdk-list" role="listbox" aria-label="Results"></ul>
+  <p class="cmdk__empty" hidden>nothing matches that</p>
   <p class="vh" id="cmdk-status" aria-live="polite"></p>
 </dialog>
 
-<script src="assets/js/router.js"></script>
-<script src="assets/js/wavefield.js"></script>
-<script src="assets/js/art.js"></script>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/peek.js"></script>
 <script src="assets/js/cmdk.js"></script>
-<script src="assets/js/enhance.js"></script>
 </body>
 </html>
