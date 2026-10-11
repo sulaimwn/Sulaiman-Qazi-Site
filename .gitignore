@@ -9,11 +9,13 @@ _source-media/
 # Adding a new image to the site? Add a matching ! line below,
 # or git will silently skip it.
 assets/img/*
+!assets/img/apple-touch-icon.png
 !assets/img/bojon.png
 !assets/img/branchforge.webp
 !assets/img/chaos-roll.png
 !assets/img/chip8-emulator.gif
 !assets/img/contact-bg.jpg
+!assets/img/favicon-32.png
 !assets/img/favicon.svg
 !assets/img/gameboy-sprite.jpg
 !assets/img/github.png
