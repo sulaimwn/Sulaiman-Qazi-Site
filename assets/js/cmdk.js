@@ -34,7 +34,7 @@
 
   var COMMANDS = [
     { g: 'Go to', label: 'Home',     keys: 'start index top about',                       run: go('') },
-    { g: 'Go to', label: 'Projects', keys: 'work polls odds librepcb mcp game boy chip8 smartwatch chaos bojon', run: go('projects/') },
+    { g: 'Go to', label: 'Projects', keys: 'work librepcb mcp game boy chip8 smartwatch chaos bojon', run: go('projects/') },
 
     { g: 'Actions', label: 'Copy email address', keys: 'clipboard mail contact', meta: EMAIL, run: copyEmail },
     { g: 'Actions', label: 'Send an email',      keys: 'mailto contact write',     run: function () { close(); location.href = 'mailto:' + EMAIL; } },
@@ -42,7 +42,6 @@
     { g: 'Actions', label: 'Open GitHub',        keys: 'code repos source', meta: '@sulaimwn', run: open('https://github.com/sulaimwn') },
     { g: 'Actions', label: 'Open LinkedIn',      keys: 'profile connect',   meta: '/in/sulaimanq', run: open('https://www.linkedin.com/in/sulaimanq/') },
     { g: 'Actions', label: 'Open Devpost',       keys: 'hackathons',        meta: 'sulaimanqazi', run: open('https://devpost.com/sulaimanqazi') },
-    { g: 'Actions', label: 'Open Polls vs. Odds', keys: 'election forecast live site', run: open('https://pollsvsodds.com/') },
 
     { g: 'View', label: 'Switch light or dark mode', keys: 'theme colour color contrast', run: function () {
         close();
